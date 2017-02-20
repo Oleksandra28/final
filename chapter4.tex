@@ -63,7 +63,7 @@ We setup the experiments as follows:
 
 
 %---------------------------------------------------------------------------------------------------------------------
-\subsection{Preliminary results without domain adaptation}
+\subsection{Preliminary Results without Domain Adaptation}
 \label{preresults}
 
 We present the results obtained when no domain adaptation is performed. The source data is expressed via target features and is described in Table \ref{table1}. Then, two representations are tested: \textit{0/1} and \textit{counts} to determine which representation is more promising i.e. gives better results. Bernoulli Naive Bayes and Multinomial Naive Nayes classifiers are used for \textit{0/1} and \textit{counts} representations respectively. 
@@ -293,7 +293,12 @@ We decide to further check whether feature selection by itself improves performa
 \end{table}
 %==================Table end
 
-We decide to test the method further on all pairs of source and target disasters described in Table ~\ref{tableadddata}. The results of applying feature selection followed by CORAL are shown in Table ~\ref{tablevar99adddata}, and the results of applying feature selection without CORAL are presented in Table ~\ref{tablevar99adddatanocoral}. In addition, we present the number of features retained after applying Variance Threshold to the pair 2013 Boston Bombings -- 2013 Alberta Floods when the different amount of the source instances is used in Figure \ref{featuresretainedfigure}. Precisely, $1000$ number of the source instances means that there are $500$ instances of the class \textit{1}, and $500$ instances of the class \textit{0}, the same logic applies to $2000$ and $4000$. $8750$ instances means that we use all the instances in the source data, and it becomes imbalanced. The figure gives a better understanding of the effect of Variance Threshold on reducing the feature space. The number of features for other pairs is in a similar range of $159-187$, which varies for different pairs and their folds.
+We decide to test the method further on all pairs of source and target disasters described in Table ~\ref{tableadddata}. The results of applying feature selection followed by CORAL are shown in Table ~\ref{tablevar99adddata}, and the results of applying feature selection without CORAL are presented in Table ~\ref{tablevar99adddatanocoral}. 
+
+In addition, we present the number of features retained after applying Variance Threshold to the pair 2013 Boston Bombings -- 2013 Alberta Floods when the different amount of the source instances is used in Figure \ref{featuresretained99figure}. Precisely, $1000$ number of the source instances means that there are $500$ instances of the class \textit{1}, and $500$ instances of the class \textit{0}, the same logic applies to $2000$ and $4000$. $8750$ instances means that we use all the instances in the source data, and it becomes imbalanced. The plot gives a better understanding of the effect of Variance Threshold on reducing the feature space. The number of features for other pairs is in a similar range of $159-187$, which varies for different pairs and their folds.
+
+Interestingly, when the threshold is set to $0.95$, the number of features retained reduces even further, and is presented in Figure \ref{featuresretained95figure}. 
+
 
 %==================Table begin
 \begin{table}[ht]
@@ -389,8 +394,8 @@ We decide to test the method further on all pairs of source and target disasters
 \end{table}
 %==================Table end
 
+%==================Figure begin
 \begin{figure}
-\label{featuresretainedfigure}
 \centering
 \caption{Number of features retained after applying Variance Threshold (0.99)}
 \begin{tikzpicture}
@@ -413,19 +418,53 @@ We decide to test the method further on all pairs of source and target disasters
     mark = *
     %mark=square,
     ]
-    table {vt_features.dat};
+    table {vt_features_99.dat};
  
 \end{axis}
 \end{tikzpicture}
+\label{featuresretained99figure}
 \end{figure}
+%==================Figure end
 
+
+%==================Figure begin
+\begin{figure}
+\centering
+\caption{Number of features retained after applying Variance Threshold (0.95)}
+\begin{tikzpicture}
+\begin{axis}[
+    title={Source -- 2013 Boston Bombings, Target -- 2013 Alberta Floods},
+    xlabel={Number of source instances},
+    ylabel={Number of features retained},
+    width=0.8\textwidth,
+    % xmin=900, xmax=10000,
+    % ymin=150, ymax=190,
+    xtick={1000, 2000, 4000, 8750},
+    % ytick={155, 165, 175, 185},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+]
+ 
+\addplot[only marks,
+    color=blue,
+    mark = *
+    %mark=square,
+    ]
+    table {vt_features_95.dat};
+ 
+\end{axis}
+\end{tikzpicture}
+\label{featuresretained95figure}
+\end{figure}
+%==================Figure end
 
 
 
 %-------------------------------------------------------------------------------------
 \subsubsection{Truncated SVD aka Latent Semantic Analysis}
 
-This transformer performs linear dimensionality reduction by means of truncated singular value decomposition (SVD). Contrary to PCA, this estimator does not center the data before computing the singular value decomposition. This means it can work with scipy.sparse matrices efficiently ~\citep{trunsvd}. 
+This transformer performs linear dimensionality reduction by means of truncated singular value decomposition (SVD) ~\citep{ir}. Contrary to PCA, this estimator does not center the data before computing the singular value decomposition. This means it can work with scipy.sparse matrices efficiently. 
 
 The results on our data show that Truncated SVD does not contribute to better accuracy. We manually choose the number of components $k$. Concretely, we experiment with $k=677$, choosing this values as $50\%$ of the original number of features ($1334$), with $k=400$ and with $k=170$, choosing this value as an average number of features obtained after Variance Threshold discussed in \ref{varthressub} that give the best performance so far.
 

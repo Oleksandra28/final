@@ -1,4 +1,4 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{21}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -100,15 +100,9 @@ T.~Sakaki, M.~Okazaki, and Y.~Matsuo.
 \newblock In \emph{In Proceedings of the 19th International Conference on World
   Wide Web (WWW 2010)}, pages 851--860, 2010.
 
-\bibitem[Scikit-Learn(2016{\natexlab{a}})]{trunsvd}
+\bibitem[Scikit-Learn(2016)]{varthres}
 Scikit-Learn.
-\newblock Truncated svd, 2016{\natexlab{a}}.
-\newblock URL
-  \url{http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html}.
-
-\bibitem[Scikit-Learn(2016{\natexlab{b}})]{varthres}
-Scikit-Learn.
-\newblock Variance threshold, 2016{\natexlab{b}}.
+\newblock Variance threshold, 2016.
 \newblock URL
   \url{http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.VarianceThreshold.html#sklearn.feature_selection.VarianceThreshold}.
 
