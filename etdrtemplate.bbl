@@ -1,0 +1,149 @@
+\begin{thebibliography}{22}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ashktorab et~al.(2014)Ashktorab, Brown, Nandi, and Culott]{tweedr}
+Zahra Ashktorab, Christopher Brown, Manojit Nandi, and Aron Culott.
+\newblock Tweedr: Mining twitter to inform disaster response.
+\newblock In \emph{Proceedings of 11th International Conference on Information
+  Systems for Crisis Response and Management (ISCRAM 2014)}, pages 354--358,
+  2014.
+
+\bibitem[Hastie et~al.(2009)Hastie, Tibshirani, and Friedman]{hastie}
+Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
+\newblock \emph{The Elements of Statistical Learning, 2nd ed.}
+\newblock Springer, 2009.
+
+\bibitem[Hossain(2010)]{miliha}
+Miliha Hossain.
+\newblock Whitening and coloring transforms for multivariate gaussian random
+  variables, 2010.
+\newblock URL
+  \url{https://www.projectrhea.org/rhea/index.php/ECE662_Whitening_and_Coloring_Transforms_S14_MH}.
+
+\bibitem[Huang et~al.(2015)Huang, Feris, Chen, and Yan]{crossdomimage}
+Junshi Huang, Rogerio Feris, Qiang Chen, and Shuicheng Yan.
+\newblock Cross-domain image retrieval with a dual attribute-aware ranking
+  network.
+\newblock In \emph{ICCV '15 Proceedings of the 2015 IEEE International
+  Conference on Computer Vision (ICCV)}, pages 1062--1070, 2015.
+
+\bibitem[Kaul(2016)]{twittercrisisblog}
+Mahima Kaul.
+\newblock Twitter for crisis and disaster relief, 2016.
+\newblock URL
+  \url{https://blog.twitter.com/2016/twitter-for-crisis-and-disaster-relief-in}.
+
+\bibitem[Kohavi and Provost(1998)]{terms}
+Ron Kohavi and Foster Provost.
+\newblock \emph{On Applied Research in Machine Learning. Editorial for the
+  Special Issue on Applications of Machine Learning and the Knowledge Discovery
+  Process}.
+\newblock 1998.
+\newblock URL
+  \url{http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html}.
+
+\bibitem[Li et~al.(2015)Li, Guevara, Herndon, Caragea, Nepali, Caragea,
+  Squicciarini, and Tapia]{twitterda}
+Hongmin Li, Nicolais Guevara, Nic Herndon, Doina Caragea, Kishore Nepali,
+  Cornelia Caragea, Anna Squicciarini, and Andrea Tapia.
+\newblock Twitter mining for disaster response: A domain adaptation approach.
+\newblock In \emph{Proceedings of the ISCRAM 2015 Conference}, 2015.
+
+\bibitem[Liu et~al.(2015)Liu, Gao, He, Deng, Duh, and Wang]{multitaskdeep}
+Xiaodong Liu, Jianfeng Gao, Xiaodong He, Li~Deng, Kevin Duh, and Ye-yi Wang.
+\newblock Representation learning using multi-task deep neural networks for
+  semantic classification and information retrieval.
+\newblock In \emph{Human Language Technologies: The 2015 Annual Conference of
+  the North American Chapter of the ACL, 2015 Association for Computational
+  Linguistics}, pages 912--921, 2015.
+
+\bibitem[Manning et~al.(2009)Manning, Raghavan, and Schutze]{ir}
+Christopher~D. Manning, Prabhakar Raghavan, and Hinrich Schutze.
+\newblock \emph{Introduction to Information Retrieval}.
+\newblock Cambridge University Press, 2009.
+
+\bibitem[Maron(2013)]{scientificamer}
+Dina~Fine Maron.
+\newblock How social media is changing disaster response, 2013.
+\newblock URL
+  \url{https://www.scientificamerican.com/article/how-social-media-is-changing-disaster-response/}.
+
+\bibitem[Mitchell(1997)]{tom}
+Tom Mitchell.
+\newblock \emph{Machine learning}.
+\newblock McGraw-Hill Science/Engineering/Math, 1997.
+
+\bibitem[Olteanu et~al.(2014)Olteanu, Castillo, Diaz, and Vieweg]{data}
+A.~Olteanu, C.~Castillo, F.~Diaz, and S.~Vieweg.
+\newblock Crisislex: A lexicon for collecting and filtering microblogged
+  communications in crises, 2014.
+\newblock URL \url{http://crisislex.org/data-collections.html#CrisisLexT6}.
+
+\bibitem[Picard(2010)]{rosalind}
+Rosalind~W. Picard.
+\newblock Decorrelating and then whitening data, 2010.
+\newblock URL \url{http://courses.media.mit.edu/2010fall/mas622j/whiten.pdf}.
+
+\bibitem[Russell and Norvig(2009)]{rn}
+Stuart Russell and Peter Norvig.
+\newblock \emph{Artificial Intelligence: A Modern Approach, 3rd ed.}
+\newblock Pearson, 2009.
+
+\bibitem[Sakaki et~al.(2010)Sakaki, Okazaki, and Matsuo]{sakaki}
+T.~Sakaki, M.~Okazaki, and Y.~Matsuo.
+\newblock Earthquake shakes twitter users: Real-time event detection by social
+  sensors.
+\newblock In \emph{In Proceedings of the 19th International Conference on World
+  Wide Web (WWW 2010)}, pages 851--860, 2010.
+
+\bibitem[Scikit-Learn(2016{\natexlab{a}})]{trunsvd}
+Scikit-Learn.
+\newblock Truncated svd, 2016{\natexlab{a}}.
+\newblock URL
+  \url{http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html}.
+
+\bibitem[Scikit-Learn(2016{\natexlab{b}})]{varthres}
+Scikit-Learn.
+\newblock Variance threshold, 2016{\natexlab{b}}.
+\newblock URL
+  \url{http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.VarianceThreshold.html#sklearn.feature_selection.VarianceThreshold}.
+
+\bibitem[Starbird et~al.(2010)Starbird, Palen, Hughes, and Vieweg]{starbird}
+Kate Starbird, Leysia Palen, Amanda Hughes, and Sarah Vieweg.
+\newblock Chatter on the red: What hazards threat reveals about the social life
+  of microblogged information.
+\newblock In \emph{In Proceedings of the ACM 2008 Conference on Computer
+  supported cooperative work (CSCW 2010)}, pages 241--250, 2010.
+
+\bibitem[Sun et~al.(2016)Sun, Feng, and Saenko]{coral}
+Baochen Sun, Jiashi Feng, and Kate Saenko.
+\newblock Return of frustratingly easy domain adaptation.
+\newblock In \emph{Proceedings of the Thirtieth AAAI Conference on Artificial
+  Intelligence (AAAI-16)}, pages 2058--2065, 2016.
+
+\bibitem[Terpstra(2012)]{terpstra}
+T.~Terpstra.
+\newblock Towards a realtime twitter analysis during crises for operational
+  crisis management.
+\newblock In \emph{In Proceedings of 9th International Conference on
+  Information Systems for Crisis Response and Management (ISCRAM 2012)}, pages
+  1--9, 2012.
+
+\bibitem[Wu and Huang(2016)]{sentmulti}
+Fangzhao Wu and Yongfeng Huang.
+\newblock Sentiment domain adaptation with multiple sources.
+\newblock In \emph{Proceedings of the 54th Annual Meeting of the Association
+  for Computational Linguistics, 2016 Association for Computational
+  Linguistics}, pages 301--310, 2016.
+
+\bibitem[Zhang et~al.(2015)Zhang, Gong, and Scholkopf]{mda}
+Kun Zhang, Mingming Gong, and Bernhard Scholkopf.
+\newblock Multi-source domain adaptation: A causal view.
+\newblock In \emph{Proceedings of the Twenty-Ninth AAAI Conference on
+  Artificial Intelligence}, pages 3150--3157, 2015.
+
+\end{thebibliography}

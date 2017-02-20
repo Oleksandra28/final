@@ -1,0 +1,32 @@
+% +--------------------------------------------------------------------+
+% | Abstract Page
+% +--------------------------------------------------------------------+
+
+\pagestyle{empty}
+%\vspace{1cm}
+\setlength{\baselineskip}{0.8cm}
+
+%\indent
+
+% +--------------------------------------------------------------------+
+% | Enter the text of your abstract below, maximum of 500 words.
+% +--------------------------------------------------------------------+
+
+Machine learning is the subfield of Artificial intelligence that gives computers the ability to learn without being explicitly programmed, as it was defined by Arthur Samuel - the American pioneer in the field of computer gaming and artificial intelligence who was born in Emporia, Kansas. 
+
+Supervised Machine Learning is focused on building predictive models given labeled training data. Data may come from a variety of sources, for instance, social media networks. 
+
+In our research, we use Twitter data, specifically, user-generated tweets about disasters such as floods, hurricanes, terrorist attacks, etc., to build classifiers that could help disaster management teams identify useful information. 
+
+A supervised classifier trained on data (\textit{training data}) from a particular domain (i.e. disaster) is expected to give accurate predictions on unseen data (\textit{testing data}) from the same domain, assuming that the training and test data have similar characteristics. Labeled data is not easily available for a current \textit{target} disaster. 
+
+However, labeled data from a prior \textit{source} disaster is presumably available, and can be used to learn a supervised classifier for the target disaster. 
+
+Unfortunately, the source disaster data and the target disaster data may not share the same characteristics, and the classifier learned from the source may not perform well on the target. Domain adaptation techniques, which use unlabeled target data in addition to labeled source data, can be used to address this problem. 
+
+We study single-source and multi-source domain adaptation techniques, using Naïve Bayes and extreme gradient boosting classifiers. 
+
+Experimental results on Twitter datasets corresponding to six disasters show that domain adaptation techniques improve the overall performance as compared to basic supervised learning classifiers. 
+
+Domain adaptation is crucial for many machine learning applications, as it enables the use of unlabeled data in domains where labeled data is not available.
+

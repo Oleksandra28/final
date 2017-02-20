@@ -1,0 +1,564 @@
+\cleardoublepage
+
+\chapter{Single-source Domain Adaptation Approach}
+\label{coralchapter}
+
+In this chapter, we define the problem of learning from a single source in Section ~\ref{coralproblemdefinitions}, and describe the correlation alignment algorithm ("CORAL") proposed in the paper ~\citep{coral} in Section ~\ref{coralalg}. Then we discuss the results obtained after applying CORAL in Section ~\ref{coralexperiments}.
+
+%---------------------------------------------------------------------------------------------------------------------
+\section{Problem Definition}
+\label{coralproblemdefinitions}
+
+We define our goal as follows: given tweets from a single source domain, train a model to classify tweets from a target domain. However, direct usage of source data may not give good performance, even if it is expressed via target features. So, we attempt to perform some transformations on source data to align its distribution with the target data distribution, assuming that labels for the target data are not available. As a possible solution, we adopt the method described in ~\citep{coral}, which minimizes the domain shift by aligning the second-order statistics of source and target distributions, without requiring any target labels. 
+
+
+
+%---------------------------------------------------------------------------------------------------------------------
+\section{Correlation Alignment Algorithm}
+\label{coralalg}
+
+~\citep{coral} present an extremely simple domain adaptation method --- CORrelation ALignment (CORAL) --- which works by aligning the distributions of the source and target features in an unsupervised manner. They propose to match the distributions by aligning the second-order statistics, namely, the covariance. More concretely, as ~\citep{coral} states, CORAL aligns the distributions by re-coloring whitened source features with the covariance of the target distribution. CORAL is simple and efficient, as the only computations it needs are:
+\begin{itemize}
+  \item computing covariance statistics in each domain
+  \item applying the whitening and re-coloring linear transformation to the source features.
+\end{itemize}
+
+Then, supervised learning proceeds as usual -- training a classifier on the transformed source features.
+
+They describe their method by taking a multi-class classification problem as the running example. Given source-domain training examples $D_S = \left \{ \overrightarrow{x_i} \right \}$, $\overrightarrow{x} \in \mathbb{R}^{D}$ with labels $L_S = \left \{ y_i \right \}$, $ y \in \left \{ {1, \cdots, L} \right \}$, and target data $D_T = \left \{ \overrightarrow{u_i} \right \}$, $\overrightarrow{u} \in \mathbb{R}^{D}$. Here both $\left \{ \overrightarrow{x} \right \}$ and $\left \{ \overrightarrow{u} \right \}$ are the $D$-dimensional feature representations $\varphi(I)$ of input $I$.
+
+Suppose $\mu_s, \mu_t$ and $C_S, C_T$ are the feature vector means and covariance matrices. According to ~\citep{coral}, to minimize the distance between the second-order statistics (covariance) of the source and target features, they apply a linear transformation $A$ to the original source features and use the Frobenius norm as the matrix distance metric: \[ \min_{A} \left \| C_{\hat{S}} - C_T \right \| _{F}^{2} = \min_{A} \left \| A^{T}C_{S}A - C_T \right \| _{F}^{2} \] where $C_S$ is covariance of the transformed source features $D_{s}A$ and $\left \| \cdot   \right \| _{F}^{2}$ denotes the matrix Frobenius norm. Essentially, the solution lies in finding the matrix $A$.
+
+After a series of calculations, which are presented in ~\citep{coral} in detail, the optimal solution can be found as: \[ A^{*} = U_{S}E \\ = (U_{S}\Sigma_{S}^{+\frac{1}{2}}U_{S}^\top)(U_{T[1:r]}\Sigma_{T[1:r]}^{+\frac{1}{2}}U_{T[1:r]}^\top) \] 
+This can be interpreted as follows: the first part whitens the source data while the second part re-colors it with the target covariance. 
+
+\textit{Whitening} refers to the process of first de-correlating the data $y$ -- its covariance, $\mathbf{E}(yy^\top)$ is now a diagonal matrix, $\Lambda$. The diagonal elements (eigenvalues) in $\Lambda$ may be the same or different. If we make them all the same, then this is called whitening the data ~\citep{rosalind}. 
+
+\textit{Re-coloring} generally refers to the process of transforming a vector of white random variables into a random vector with a specified covariance matrix ~\citep{miliha}.
+
+As ~\citep{coral} suggests, after CORAL transforms the source features to the target space, a classifier $f_{\overrightarrow{w}}$ parametrized by $\omega$ can be trained on the adjusted source features and directly applied to target features. 
+
+Since correlation alignment changes the features only, it can be applied to any base classifier. In this work, we run experiments using Naive Bayes Classifier. 
+
+The first supervised learning method we use is the multinomial Naive Bayes or multinomial NB model, a probabilistic learning method ~\citep{ir}. It is used for multinomially distributed data, for instance, in text classification where the data are typically represented as word vector counts. We use it with \textit{counts} representation for the data.
+
+An alternative to the multinomial model is the multivariate Bernoulli model or Bernoulli model. It generates an indicator for each term of the vocabulary, either $1$ indicating presence of the term in the document or $0$ indicating absence ~\citep{ir}. We use it with \textit{0/1} representation for the data.
+
+However, since CORAL changes the values of the data from \textit{0/1} to continuous, we need to use Gaussian Naive Bayes algorithm for classification of such data. The likelihood of the features is assumed to be Gaussian: \[ P(x_i|y) = \frac{1}{\sqrt{2\pi \sigma ^{2}_y}} exp\left ( - \frac{(x_i - \mu_y)^2}{2\sigma ^2_y} \right ) \] 
+
+The results of the experiments are discussed in Section ~\ref{coralexperiments}.
+
+
+%---------------------------------------------------------------------------------------------------------------------
+\section{Experiments and Results}
+\label{coralexperiments}
+
+We setup the experiments as follows:
+
+\begin{itemize}
+  \item use only target features to represent sources
+  \item perform 5-fold cross-validation over target and report the average accuracy over the 5 folds (each source is "aligned" with 3 target unlabeled folds using CORAL, 1 labeled target fold is used for testing, 1 labeled target fold is kept for possible use of labeled target data)
+  \item vary the number of instances in the sources (i.e. 500 instances per class, 1000 instances per class, etc) - smaller datasets are subsets of th larger datasets
+\end{itemize}
+
+
+%---------------------------------------------------------------------------------------------------------------------
+\subsection{Preliminary results without domain adaptation}
+\label{preresults}
+
+We present the results obtained when no domain adaptation is performed. The source data is expressed via target features and is described in Table \ref{table1}. Then, two representations are tested: \textit{0/1} and \textit{counts} to determine which representation is more promising i.e. gives better results. Bernoulli Naive Bayes and Multinomial Naive Nayes classifiers are used for \textit{0/1} and \textit{counts} representations respectively. 
+
+The target data is divided into five folds for cross-validation ~\citep{hastie}. Each fold in turn is used for testing, and the accuracy is recorded in each run. The average results are reported. The number of instances per class in the source data is varied: the results are recorded for source data having $500$ instances per class, $1000$ instances per class, and $2000$ instances per class. All source data is also used as training data resulting in slightly better accuracy for $Source 2$ and $Source  3$ ($0.7888$ and $0.7421$, respectively, as compared to $0.7810$ and $0.7346$, respectively, for the number of instances equal to $2000$) in Table \ref{table3}. Generally, balanced training data (i.e. data that has equal number of instances per class) gives better performance.
+
+The results in Table \ref{table3} and Table \ref{table4} indicate that \textit{0/1} representation is more efficient. One of the possible explanations might be that it is unlikely that meaningful words are repeatedly used in a single tweet since tweets are relatively short. Thus, keeping the actual counts does not provide additional relevant information.
+
+
+%==================Table 1 begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Target and Source datasets}
+    \begin{tabular}[c]{|c|c|c|c|}
+        \hline
+        Target & Source 1 & Source 2 & Source 3 \\
+        \hline
+        2013 Alberta Floods & 2012 Sandy Hurricane & 2013 Queensland Floods & 2013 Boston Bombings \\
+        \hline
+    \end{tabular}
+    \label{table1}
+   \end{center}
+\end{table}
+%==================Table 1 end
+
+
+%==================Table 3
+\begin{table}[ht]
+    \begin{center}
+
+% +--------------------------------------------------------------------+
+% | The table is created with this command
+% |
+% | \begin{tabular}[pos]{table spec}
+% |
+% | The "pos" argument specifies the vertical position of the table
+% | relative to the baseline of the surrounding text.  Use t, b, or c
+% | to specify alignment at the top, bottom, or center.
+% |
+% | The "table spec" command defines the format of the table
+% |   l for a column of left-aligned text
+% |   r for a column of right-aligned text
+% |   c for centered text
+% |   p{width} for a column containing justified text with line breaks
+% |   | for a vertical line
+% |
+% |  In this example, the caption is made to appear above the table
+% |  by positioning the \caption command before the \begin{tabular
+% |  command. To position the caption below the table, insert the
+% |  \caption command after the \end{tabular} command.
+% +--------------------------------------------------------------------+
+
+    \caption{Accuracy after running Bernoulli Naive Bayes with 0/1 representation for instances}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Sources & 500 & 1000 & 2000 & All \\
+        \hline
+        Source 1 & 0.699183336 & 0.737669795 & 0.748874085 & 0.714163926 \\
+        Source 2 & 0.759834769 & 0.764704356 & 0.781025693 & 0.788819876 \\
+        Source 3 & 0.710511727 & 0.716357069 & 0.734625396 & 0.742175131 \\
+        \hline
+    \end{tabular}
+
+    \label{table3}
+   \end{center}
+\end{table}
+%==================Table 3 end
+
+
+%==================Table 4 end
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Multinomial Naive Bayes with counts representation for instances}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Sources & 500 & 1000 & 2000 & All \\
+        \hline
+        Source 1 & 0.667883087 & 0.708560882 & 0.727195729 & 0.694068932 \\
+        Source 2 & 0.749968752 & 0.758614519 & 0.772012294 & 0.786384119 \\
+        Source 3 & 0.676287695 & 0.697966125 & 0.715016795 & 0.720984046 \\
+        \hline
+    \end{tabular}
+
+    \label{table4}
+   \end{center}
+\end{table}
+%==================Table 4 end
+
+After running the preliminary experiments both with \textit{0/1} representation and \textit{counts} representation using Naive Bayes Classifier ~\citep{tom}, the results obtained in Table \ref{table3} have shown that \textit{0/1} representation gives better performance as compared to the \textit{counts} representation results presented in Table \ref{table4}. Consequently, in the further experiments the \textit{0/1} representation is used.
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.670077908 & 0.733406627 & 0.77286521 & 0.797223237 \\
+        2013 Queensland Floods & 0.666543406 & 0.645719596 & 0.684447955 & 0.657191572\\
+        2013 Boston Bombings & 0.643529372 & 0.573255749 & 0.599684114 & 0.649713799 \\
+        \hline
+    \end{tabular}
+    \label{tablecoral}
+   \end{center}
+\end{table}
+%==================Table end
+
+We can see improvement for one pair of source, precisely, 2012 Sandy Hurricane. After applying CORAL, the accuracy increases from $0.74$ to $0.77$ for a subset of $2000$ instances per class and from $0.71$ to $0.79$ for a set that uses all instances. In other cases, the accuracy decreases. One of the possible reasons might be that the initial matrix is very sparse and has a large number of features (precisely, $1334$) as compared to the number of instances ($1000, 2000$ etc). In the original paper ~\citep{coral}, they reduce the original dimentionaly of the dataset to keep top $400$ features based on mutual information ~\citep{hastie}. 
+
+Similarly, we attempt to reduce the dimentionaly of our dataset. We experiment with several dimentionaly reduction techniques. Since we assume that target labeled data is not available, using mutual information for feature selection is not quite applicable.
+
+\subsection{Feature Selection}
+\label{varthressub}
+
+%-------------------------------------------------------------------------------------
+\subsubsection{Principle Component Analysis}
+One of the dimentionality reduction methods that does not require labeled data is Principle Component Analysis (PCA) -- standard linear principal components are obtained from the eigenvectors of the covariance matrix, and give directions in which the data have maximal variance ~\citep{hastie}. Basically, we select $k$ principle components that should describe our data well. One of the recommended methods to choose $k$ is to choose the smallest $k$ for which $99\%$ of variance retained. However, when we choose $k$ in this way, the number of components (i.e. features) retained becomes $1332$, which is only $2$ features less than the original dimentionality of $1334$. Therefore, we decide to not proceed with using PCA on our data.
+
+%-------------------------------------------------------------------------------------
+\subsubsection{Variance Threshold}
+\label{varthressub}
+
+Feature selector that removes all low-variance features. 
+
+This feature selection algorithm looks only at the features $X$, not the desired outputs $y$, and can thus be used for unsupervised learning ~\citep{varthres}. Specifically, we have a dataset with boolean features, and we want to remove all features that are either one or zero (on or off), for instance, in more than $99\%$ of the samples. Boolean features are Bernoulli random variables, and the variance of such variables is given by: \[ Var[X] = p(1-p)\] so we can select features using the threshold equal to $.99 * (1 - .99)$.
+
+In order to select features, we first concatenate source data and target data, which we call \textit{training target unlabeled -- tTU}. Second, we transform source data and tTU using the extracted features. Then, we run CORAL on source data and tTU. We fit the classifier with transformed source data after the CORAL stage, and we test on \textit{testing target data}.
+
+Features with a training-set variance lower than the specified threshold are removed. We apply feature selection for every combination of source-target fold, so the number of features varies from $160$ to $176$. That is a significant reduction (by $88\%$) compared to the original dimentionaly of the data -- $1334$. 
+
+The value of threshold is varied across the experiments. Precisely, we experiment with $k=0.95, k=0.90, k=0.80$, and we present results in Table \ref{tablevar95}, in Table \ref{tablevar9}, in Table \ref{tablevar8} respectively. The highest accuracy is obtained when the threshold is equal to $0.99$ as described in Table \ref{tablevar99}. 
+
+We decide to further check whether feature selection by itself improves performance, without applying CORAL. We run select features based on Varience Threshold equal to $0.99$ and then run the Bernoulli Naive Bayes classifier. The results presented in Table \ref{tablevar99nocoral} show that applying CORAL does improve performance. Thus, eliminating features with variance lower than $0.99$ and then applying CORAL is more efficient than when CORAL is not applied. 
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL. Bernoulli Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.669101929 & 0.701010747 & 0.715869636 & 0.651807358 \\
+        2013 Queensland Floods & 0.740105627 & 0.740835257 & 0.742905828 & 0.74838643 \\
+        2013 Boston Bombings & 0.685786895 & 0.694311377 & 0.69711321 & 0.695408269 \\
+        \hline
+    \end{tabular}
+    \label{tablevar99nocoral}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.770675727 & 0.843014879 & 0.857263347 & 0.846181082 \\
+        2013 Queensland Floods & 0.732553416 & 0.807941416 & 0.813179302 & 0.802460296 \\
+        2013 Boston Bombings & 0.712096496 & 0.712092048 & 0.744128673 & 0.791619412 \\
+        \hline
+    \end{tabular}
+    \label{tablevar99}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Variance Threshold (0.95) and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.589452614 & 0.775300967 & 0.735233297 & 0.652419188 \\
+        2013 Queensland Floods & 0.837409658 & 0.81122223 & 0.837044324 & 0.698949665 \\
+        2013 Boston Bombings & 0.639519076 & 0.706117934 & 0.781025248 & 0.734260358 \\
+        \hline
+    \end{tabular}
+    \label{tablevar95}
+   \end{center}
+\end{table}
+%==================Table end
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Variance Threshold (0.90) and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.703077612 & 0.681526025 & 0.639758233 & 0.592012176 \\
+        2013 Queensland Floods & 0.815486955 & 0.754715498 & 0.734633995 & 0.657777097 \\
+        2013 Boston Bombings & 0.743512617 & 0.700768106 & 0.679461385 & 0.626111366 \\
+        \hline
+    \end{tabular}
+    \label{tablevar9}
+   \end{center}
+\end{table}
+%==================Table end
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Variance Threshold (0.80) and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.561565954 & 0.590795039 & 0.585071351 & 0.517477091 \\
+        2013 Queensland Floods & 0.62684663 & 0.616980465 & 0.636341457 & 0.644623001 \\
+        2013 Boston Bombings & 0.743512617 & 0.700768106 & 0.679461385 & 0.626111366 \\
+        \hline
+    \end{tabular}
+    \label{tablevar8}
+   \end{center}
+\end{table}
+%==================Table end
+
+We decide to test the method further on all pairs of source and target disasters described in Table ~\ref{tableadddata}. The results of applying feature selection followed by CORAL are shown in Table ~\ref{tablevar99adddata}, and the results of applying feature selection without CORAL are presented in Table ~\ref{tablevar99adddatanocoral}. In addition, we present the number of features retained after applying Variance Threshold to the pair 2013 Boston Bombings -- 2013 Alberta Floods when the different amount of the source instances is used in Figure \ref{featuresretainedfigure}. Precisely, $1000$ number of the source instances means that there are $500$ instances of the class \textit{1}, and $500$ instances of the class \textit{0}, the same logic applies to $2000$ and $4000$. $8750$ instances means that we use all the instances in the source data, and it becomes imbalanced. The figure gives a better understanding of the effect of Variance Threshold on reducing the feature space. The number of features for other pairs is in a similar range of $159-187$, which varies for different pairs and their folds.
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{All Pairs of Source-Target Disasters}
+    \begin{tabular}[c]{|c|c|c|}
+        \hline
+        Pair & Source Disaster Event & Target Disaster Event  \\
+        \hline
+        $SH \rightarrow QF$ & 2012 Sandy Hurricane & 2013 Queensland Floods \\
+
+        $SH \rightarrow BB$ & 2012 Sandy Hurricane & 2013 Boston Bombings \\
+        $QF \rightarrow BB$ & 2013 Queensland Floods & 2013 Boston Bombings \\
+
+        $SH \rightarrow WT$ & 2012 Sandy Hurricane & 2013 West Texas Explosion \\
+        $BB \rightarrow WT$ & 2013 Boston Bombings & 2013 West Texas Explosion \\
+
+        $SH \rightarrow OT$ & 2012 Sandy Hurricane & 2013 Oklahoma Tornado \\
+        $QF \rightarrow OT$ & 2013 Queensland Floods & 2013 Oklahoma Tornado \\
+        $BB \rightarrow OT$ & 2013 Boston Bombings & 2013 Oklahoma Tornado  \\
+
+        $SH \rightarrow AF$ & 2012 Sandy Hurricane & 2013 Alberta Floods \\
+        $QF \rightarrow AF$ & 2013 Queensland Floods & 2013 Alberta Floods \\
+        $BB \rightarrow AF$ & 2013 Boston Bombings & 2013 Alberta Floods \\
+        \hline
+    \end{tabular}
+    \label{tableadddata}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL. Gaussian Naive Bayes. Additional pairs}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+        $SH \rightarrow QF$ & 0.751221161 & 0.851656398 & 0.852042661 & 0.838684627 \\
+
+        $SH \rightarrow BB$ & 0.789714286 & 0.764114286 & 0.827314286 & 0.766971429 \\
+        $QF \rightarrow BB$ & 0.834057143 & 0.819657143 & 0.804571429 & 0.68 \\
+
+        $SH \rightarrow WT$ & 0.802055629 & 0.738821915 & 0.674232334 & 0.836269315 \\
+        $BB \rightarrow WT$ & 0.888098892 & 0.945347159 & 0.94568627 & 0.949412532 \\
+
+        $SH \rightarrow OT$ & 0.85359559 & 0.858683049 & 0.857835445 & 0.753334467\\
+        $QF \rightarrow OT$ & 0.82743645 & 0.867645187 & 0.873215221 & 0.815452151 \\
+        $BB \rightarrow OT$ & 0.792924312 & 0.853962013 & 0.827806759 & 0.823568371 \\
+
+        $SH \rightarrow AF$ & 0.770675727 & 0.843014879 & 0.857263347 & 0.846181082 \\
+        $QF \rightarrow AF$ & 0.732553416 & 0.807941416 & 0.813179302 & 0.802460296 \\
+        $BB \rightarrow AF$ & 0.712096496 & 0.712092048 & 0.744128673 & 0.791619412 \\
+
+        \hline
+    \end{tabular}
+    \label{tablevar99adddata}
+   \end{center}
+\end{table}
+%==================Table end
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL. Bernoulli Naive Bayes. Additional pairs}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+        $SH \rightarrow QF$ & 0.645647344  &    0.76355232  &  0.773312788  & 0.724891438 \\
+
+        $SH \rightarrow BB$ & 0.694285714   &  0.7664  &  0.703314286  & 0.6864 \\
+        $QF \rightarrow BB$ & 0.712685714   &  0.703314286  & 0.716342857  & 0.717485714 \\
+
+        $SH \rightarrow WT$ & 0.682135879  &   0.735997122  & 0.714882615  & 0.738481467 \\
+        $BB \rightarrow WT$ & 0.923893032   &  0.931683902  & 0.93157129   & 0.94241173 \\
+
+        $SH \rightarrow OT$ & 0.763017791   &  0.768710137  & 0.795108695  & 0.762413197 \\
+        $QF \rightarrow OT$ & 0.796802144   &  0.801283322  & 0.815331232  & 0.815209727 \\
+        $BB \rightarrow OT$ & 0.796561919   &  0.791354935  & 0.806612765  & 0.808791942 \\
+
+        $SH \rightarrow AF$ & 0.669101929 & 0.701010747 & 0.715869636 & 0.651807358 \\
+        $QF \rightarrow AF$ & 0.740105627 & 0.740835257 & 0.742905828 & 0.74838643 \\  
+        $BB \rightarrow AF$ & 0.685786895 & 0.694311377 & 0.69711321 & 0.695408269 \\
+
+        \hline
+    \end{tabular}
+    \label{tablevar99adddatanocoral}
+   \end{center}
+\end{table}
+%==================Table end
+
+\begin{figure}
+\label{featuresretainedfigure}
+\centering
+\caption{Number of features retained after applying Variance Threshold (0.99)}
+\begin{tikzpicture}
+\begin{axis}[
+    title={Source -- 2013 Boston Bombings, Target -- 2013 Alberta Floods},
+    xlabel={Number of source instances},
+    ylabel={Number of features retained},
+    width=0.8\textwidth,
+    % xmin=900, xmax=10000,
+    % ymin=150, ymax=190,
+    xtick={1000, 2000, 4000, 8750},
+    % ytick={155, 165, 175, 185},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+]
+ 
+\addplot[only marks,
+    color=blue,
+    mark = *
+    %mark=square,
+    ]
+    table {vt_features.dat};
+ 
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+
+
+
+%-------------------------------------------------------------------------------------
+\subsubsection{Truncated SVD aka Latent Semantic Analysis}
+
+This transformer performs linear dimensionality reduction by means of truncated singular value decomposition (SVD). Contrary to PCA, this estimator does not center the data before computing the singular value decomposition. This means it can work with scipy.sparse matrices efficiently ~\citep{trunsvd}. 
+
+The results on our data show that Truncated SVD does not contribute to better accuracy. We manually choose the number of components $k$. Concretely, we experiment with $k=677$, choosing this values as $50\%$ of the original number of features ($1334$), with $k=400$ and with $k=170$, choosing this value as an average number of features obtained after Variance Threshold discussed in \ref{varthressub} that give the best performance so far.
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Truncated SVD (k=677) and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.610885735 & 0.61076534 & 0.631833052 & 0.614783494 \\
+        2013 Queensland Floods & 0.644013172 & 0.648520761 & 0.651077431 & 0.646450264 \\
+        2013 Boston Bombings & 0.635488616 & 0.58519041 & 0.606746297 & 0.609668153 \\
+        \hline
+    \end{tabular}
+    \label{tabletrunsvd677}
+   \end{center}
+\end{table}
+%==================Table end
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Truncated SVD (k=400) and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.629033148 & 0.630251842 & 0.64462226 & 0.634392095 \\
+        2013 Queensland Floods & 0.656436971 & 0.617708835 & 0.626234503 & 0.606870175 \\
+        2013 Boston Bombings & 0.646330092 & 0.56668048 & 0.578736203 & 0.582876604 \\
+        \hline
+    \end{tabular}
+    \label{tabletrunsvd400}
+   \end{center}
+\end{table}
+%==================Table end
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Truncated SVD (k=170) and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.610885735 & 0.61076534 & 0.631833052 & 0.614783494 \\
+        2013 Queensland Floods & 0.644013172 & 0.648520761 & 0.651077431 & 0.646450264 \\
+        2013 Boston Bombings & 0.635488616 & 0.58519041 & 0.606746297 & 0.609668153 \\
+        \hline
+    \end{tabular}
+    \label{tabletrunsvd170}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+%-------------------------------------------------------------------------------------
+\subsection{Mutual Information}
+
+The mutual information of two random variables is a natural measure of dependence between the two variables ~\citep{hastie}, which can be expressed as follows: \[I(x,y) = \sum_{x,y} P(x,y) \ln {{P(x,y)}\over{P(x) P(y)}} \]
+
+Our first experiment in this subsection we setup as follows:
+  \begin{itemize}
+  \item express source via target features
+  \item select top K features from source based on Mutual Information
+  \item transform the source and target validation fold to be expressed via newly obtained top $K$ features 
+  \item run CORAL on transformed source and transformed target obtained at the previous step
+  \item fit the classifier with the transformed source obtained at the previous step
+  \item transform the target test fold to be expressed via top $K$ features
+  \item test the classifier on target test fold
+  \end{itemize}
+
+We select $k=300$ and present the results in Table \ref{tablemisource300}. 
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features based on Mutual Information in Source (k=300) and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.668858769 & 0.710877135 & 0.648762884 & 0.698939879 \\
+        2013 Queensland Floods & 0.704055592 & 0.742418098 & 0.708438635 & 0.63378575 \\
+        2013 Boston Bombings & 0.46681585 & 0.6857886 & 0.500670619 & 0.690170383 \\
+        \hline
+    \end{tabular}
+    \label{tablemisource300}
+   \end{center}
+\end{table}
+%==================Table end
+
+Next, we increase the parameter $k$ to be equal to $400$ to retain more features, and presumably, improve performance.
+The results are shown in Table \ref{tablemisource400}. We conclude that keeping more features improve the accuracy. However, the way we apply the Mutual Information selection method on source might not be optimal.
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features based on Mutual Information in Source (k=400) and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.670563117 & 0.725370023 & 0.751186186 & 0.7265859 \\
+        2013 Queensland Floods & 0.721959474 & 0.680918495 & 0.632077177 & 0.63512432 \\
+        2013 Boston Bombings & 0.538304904 & 0.697602422 & 0.526854118 & 0.720617346 \\
+        \hline
+    \end{tabular}
+    \label{tablemisource400}
+   \end{center}
+\end{table}
+%==================Table end
+
+We combine source and target data disregarding original source labels and assigning label 0 to source samples, and label 1 to target samples. Then we select top K features based on mutual information with the labels.
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features based on Mutual Information in Source (k=300) combining Source and Target, and applying CORAL. Gaussian Naive Bayes}
+    \begin{tabular}[c]{|c|c|c|c|c|}
+        \hline
+        Source Disaster Event & 500 & 1000 & 2000 & Total \\
+        \hline
+        2012 Sandy Hurricane & 0.0.725121673   &   0.812701655  & 0.729157619  & 0.824256229 \\
+        2013 Queensland Floods & 0.747290799   &   0.510790991  & 0.75946773  &  0.506013627 \\
+        2013 Boston Bombings & 0.663243836 &   0.441239214  & 0.29570236   & 0.382660725 \\
+        \hline
+    \end{tabular}
+    \label{tablemisource300Labels}
+   \end{center}
+\end{table}
+%==================Table end
+

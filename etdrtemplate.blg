@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: etdrtemplate.aux
+The style file: plainnat.bst
+Database file #1: references.bib
+Warning--I didn't find a database entry for "bagofwords"
+Warning--empty publisher in terms
+You've used 22 entries,
+            2773 wiz_defined-function locations,
+            699 strings with 9171 characters,
+and the built_in function-call counts, 10580 in all, are:
+= -- 917
+> -- 581
+< -- 20
++ -- 200
+- -- 177
+* -- 756
+:= -- 1537
+add.period$ -- 67
+call.type$ -- 22
+change.case$ -- 120
+chr.to.int$ -- 21
+cite$ -- 45
+duplicate$ -- 529
+empty$ -- 916
+format.name$ -- 205
+if$ -- 2301
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 20
+newline$ -- 119
+num.names$ -- 88
+pop$ -- 325
+preamble$ -- 1
+purify$ -- 103
+quote$ -- 0
+skip$ -- 449
+stack$ -- 0
+substring$ -- 340
+swap$ -- 117
+text.length$ -- 9
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 217
+warning$ -- 1
+while$ -- 93
+width$ -- 0
+write$ -- 281
+(There were 2 warnings)

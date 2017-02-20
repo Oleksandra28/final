@@ -1,0 +1,98 @@
+\cleardoublepage
+
+%---------------------------------------------------------------------------------------------------------------------
+\chapter{Data Description}
+\label{datadescription}
+
+In this chapter, we first present the original dataset in Section \ref{originaldataset}, and then describe the operations performed on the data (i.e. preprocessing) in Section \ref{datapreprocessing}. 
+
+%---------------------------------------------------------------------------------------------------------------------
+\section{Original Dataset}
+\label{originaldataset}
+
+In this work, we use the dataset CrisisLexT6 ~\citep{data}. The dataset consists of 60,000 tweets\footnote{A tweet is a short text (up to 140 characters) that users of Twitter can post on Twitter.com} posted during 6 crisis events in 2012 and 2013. The 60,000 tweets (10,000 in each disaster) have been labeled by crowdsourcing workers according to relatedness (as \textit{on-topic} or \textit{off-topic}). The \textit{on-topic} tweets are labeled as \textit{1}, and the \textit{off-topic} tweets are labeled as \textit{0}. The amount of tweets per class for each disaster is presented in Table \ref{originaldatasettable}.
+
+%==================Table 1 begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Original Dataset}
+    \begin{tabular}[c]{|c|c|c|c|}
+        \hline
+        Crisis & On-topic & Off-topic & Total \\
+        \hline
+        2012 Sandy Hurricane & 6138 & 3870 & 10008 \\
+        2013 Queensland Floods & 5414 & 4619 & 10033 \\ 
+        2013 Boston Bombings & 5648 & 4364 & 10012 \\ 
+        2013 West Texas Explosion & 5246 & 4760 & 10006 \\
+        2013 Oklahoma Tornado & 4827 & 5165 & 9992 \\
+        2013 Alberta Floods & 5189 & 4842 & 10031 \\
+        \hline
+    \end{tabular}
+    \label{originaldatasettable}
+   \end{center}
+\end{table}
+%==================Table 1 end
+
+
+%---------------------------------------------------------------------------------------------------------------------
+\section{Data Preprocessing}
+\label{datapreprocessing}
+
+The tweets are preprocessed before they are used in training, domain adaptation and testing stages.
+The following cleaning steps have been taken ~\citep{twitterda}:
+
+\begin{itemize}
+  \item non-printable, ASCII characters are removed, as they are generally regarded as noise rather than useful information.
+  \item printable HTML entities are converted into their corresponding ASCII equivalents
+  \item URLs, email addresses, and usernames are replaced with a URL/email/username placeholder for each type of entity, respectively, under the assumption that those features could be predictive 
+  \item numbers, punctuation signs and hashtags are kept under the assumption that numbers could be indicative of an address, while punctuation/emoticons and hashtags could be indicative of emotions 
+  \item RT (i.e., retweet) are removed under the assumptions that such features are not informative for our classification tasks
+  \item duplicate tweets and empty tweets (that have no characters left after the cleaning) are removed from the data sets
+\end{itemize}
+
+The amount of tweets per class for each disaster has reduced and is presented in Table \ref{aftercleaningdatasettable}.
+
+%==================Table 1 begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Dataset after preprocessing}
+    \begin{tabular}[c]{|c|c|c|c|}
+        \hline
+        Crisis & On-topic & Off-topic & Total \\
+        \hline
+        2012 Sandy Hurricane & 5261 & 3752 & 9013 \\
+        2013 Queensland Floods & 3236 & 4550 & 7786 \\ 
+        2013 Boston Bombings & 4441 & 4309 & 8750 \\ 
+        2013 West Texas Explosion & 4123 & 4733 & 8856 \\
+        2013 Oklahoma Tornado & 3209 & 5049 & 8258 \\
+        2013 Alberta Floods & 3497 & 4714 & 8211 \\
+        \hline
+    \end{tabular}
+    \label{aftercleaningdatasettable}
+   \end{center}
+\end{table}
+%==================Table 1 end
+
+After preprocessing, the source tweets are expressed via target features i.e. via words that occur in the target tweets. The bag-of-words ~\citep{tom} representation is used to represent tweets as vectors of features. A sample bag-of-words tweet represenatation is presented in Table \ref{sampletweets}.
+
+
+%==================Table 1 begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Example of bag-of-words representation}
+    \begin{tabular}[c]{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        Sample Tweet & life & is & real & now & New & York & has & been & real & travelling & to \\ 
+        \hline
+        Life is real now & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        Travelling to New York now & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\
+        New York has been real & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 \\
+        \hline
+    \end{tabular}
+    \label{sampletweets}
+   \end{center}
+\end{table}
+%==================Table 1 end
+
+
+

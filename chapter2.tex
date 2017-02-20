@@ -1,0 +1,55 @@
+\cleardoublepage
+
+\chapter{Related work}
+\label{relatedworkchapter}
+
+In this chapter we discuss some of the previous work that has been done in the field of domain adaptation and review some of the relevant research papers.
+
+Domain Adaptation has been researched in the number of various machine learning applications.
+
+~\citep{crossdomimage} address the problem of cross-domain image retrieval by taking clothing products as a concrete use case. They define their task as follows: given an offline clothing image from the “street” domain, the goal is to retrieve the same or similar clothing items from a large-scale gallery of professional online shopping images. They propose a Dual Attribute-aware Ranking Network (DARN) for retrieval feature learning. DARN consists of two sub-networks, one for each domain with similar structure. Each of the two domain images are fed into each of the two sub-networks.
+
+According to ~\citep{crossdomimage}, the retrieval features from DARN have several advantages compared with the deep features of other proposed networks:
+\begin{itemize}
+  \item by using the dual-structure network, the model can handle the cross-domain problem more appropriately
+  \item in each sub-network, the scenario-specific semantic representation of clothing is elaborately captured by leveraging the tree-structure layers
+  \item based on the semantic representation, the visual similarity constraint enables more effective feature learning for the retrieval problem
+\end{itemize}
+
+To analyze the retrieval performance of deep features, ~\citep{crossdomimage} compares pre-trained networks including AlexNet (pretrained CNN) and pre-trained NIN. They show that the attribute-guided learning is a key factor for retrieval accuracy improvement. They evaluate each individual component of the proposed approach. The authors denote the overall solution as Dual Attribute-aware Rank-ing Network (DARN), the solution without dual structure
+as Attribute-aware Ranking Network (ARN), the solution without dual structure and the ranking loss function as
+Attribute-aware Network (AN).
+
+Compared with a single model, the dual-structure network greatly improves the retrieval performance, i.e.,
+the top-20 retrieval accuracy of DARN improves $9.9\%$ when compared with ARN.
+
+As ~\citep{crossdomimage} states, the proposed method is different from previous approaches in that it simultaneously embeds semantic attribute information and visual similarity constraints into the feature learning stage, while modeling the discrepancy of the two domains. ~\citep{crossdomimage} demonstrates the approach in a practical real-world clothing retrieval application, showing substantial improvement over other baselines. 
+
+Similarly, ~\citep{multitaskdeep} adopts the deep learning approach, and developes a multi-task DNN for learning representations across multiple tasks. According to the authors, their multi-task DNN approach combines tasks of multiple-domain classification (for query classification) and information retrieval (ranking for web search), and demonstrates significant gains over strong baselines in a comprehensive set of domain adaptation.
+
+The multi-task model combines classification and ranking tasks: query classification is used as the classification task and web search is used as the ranking task. ~\citep{multitaskdeep} writes that the proposed model maps any arbitrary queries $Q$ or documents $D$ into fixed low dimensional vector representations using DNNs. The input is either a query or a document, initially represented as bag-of-words. It goes through a number of layers in the proposed neural network: $l_1$ -– the word hash layer; $l_2$ -– the semantic representation layer; $l_3$ -– the task-specific representation layer. 
+Thus, the lower layers are shared across different tasks, whereas the top layers represent task-specific outputs. 
+
+According to the results presented in ~\citep{multitaskdeep}, the Multi-Task-DNN robustly outperforms strong baselines across all web search and query classification tasks.
+
+Also, the idea of learning from multiple sources is researched by ~\citep{sentmulti} in the area of sentiment classification. 
+
+In this paper, the authors propose a new domain adaptation approach which can exploit sentiment knowledge from multiple
+source domains. They first extract both global and domain-specific sentiment knowledge from the data of multiple
+source domains using multi-task learning. Then they transfer them to target domain with the help of words’ sentiment
+polarity relations extracted from the unlabeled target domain data. They manually create two relation extraction rules for opposite sentiment polarity, and two relation extraction rules for coherent sentiment polarity, and build a sentiment graph. Each source domain is decomposed into two components:
+\begin{itemize}
+  \item the global sentiment model is shared by all source domains and is trained in these domains simultaneously
+  \item the domain-specific sentiment model is trained on the labeled data within one source domain and is used to capture the specific sentiment knowledge of this domain
+\end{itemize}
+
+Furthermore, they mention the domain similary measure based on term distribution, and propose their own domain similarity measure based on similarity between sentiment graphs. Thus, the similarities between target domain and different source domains are also incorporated into the adaptation process. 
+
+The authers state that experimental results on benchmark dataset show the effectiveness of the approach in improving cross-domain sentiment classification performance. 
+
+However, their approach is not quite transferable to other problems. The reason is that it might be difficult to apply their method to other datasets because we would first need to build a sentiment graph, on which the method heavily relies, and this is not scalable and not trivial. 
+
+
+
+
+
