@@ -14,7 +14,7 @@
 \contentsline {section}{\numberline {4.1}Problem Definition}{12}{section.4.1}
 \contentsline {section}{\numberline {4.2}Correlation Alignment Algorithm}{13}{section.4.2}
 \contentsline {section}{\numberline {4.3}Experiments and Results}{15}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Preliminary results without domain adaptation}{15}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.1}Preliminary Results without Domain Adaptation}{15}{subsection.4.3.1}
 \contentsline {subsection}{\numberline {4.3.2}Feature Selection}{17}{subsection.4.3.2}
 \contentsline {subsubsection}{Principle Component Analysis}{17}{section*.6}
 \contentsline {subsubsection}{Variance Threshold}{17}{section*.7}

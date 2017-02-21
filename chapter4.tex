@@ -158,7 +158,7 @@ After running the preliminary experiments both with \textit{0/1} representation 
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -203,7 +203,7 @@ We decide to further check whether feature selection by itself improves performa
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL. Bernoulli Naive Bayes}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL with Bernoulli Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -222,7 +222,7 @@ We decide to further check whether feature selection by itself improves performa
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -242,7 +242,7 @@ We decide to further check whether feature selection by itself improves performa
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.95) and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features via Variance Threshold (0.95) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -260,7 +260,7 @@ We decide to further check whether feature selection by itself improves performa
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.90) and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features via Variance Threshold (0.90) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -278,7 +278,7 @@ We decide to further check whether feature selection by itself improves performa
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.80) and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features via Variance Threshold (0.80) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -335,7 +335,7 @@ Interestingly, when the threshold is set to $0.95$, the number of features retai
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL. Gaussian Naive Bayes. Additional pairs}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL with Gaussian Naive Bayes. Additional pairs}
     \begin{tabular}[c]{|c|c|c|c|c|c|}
         \hline
         Pair & 500 & 1000 & 2000 & Total \\
@@ -366,7 +366,7 @@ Interestingly, when the threshold is set to $0.95$, the number of features retai
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL. Bernoulli Naive Bayes. Additional pairs}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL with Bernoulli Naive Bayes. Additional pairs}
     \begin{tabular}[c]{|c|c|c|c|c|c|}
         \hline
         Pair & 500 & 1000 & 2000 & Total \\
@@ -471,7 +471,7 @@ The results on our data show that Truncated SVD does not contribute to better ac
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Truncated SVD (k=677) and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features via Truncated SVD (k=677) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -489,7 +489,7 @@ The results on our data show that Truncated SVD does not contribute to better ac
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Truncated SVD (k=400) and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features via Truncated SVD (k=400) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -507,7 +507,7 @@ The results on our data show that Truncated SVD does not contribute to better ac
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Truncated SVD (k=170) and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features via Truncated SVD (k=170) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -544,7 +544,7 @@ We select $k=300$ and present the results in Table \ref{tablemisource300}.
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features based on Mutual Information in Source (k=300) and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features based on Mutual Information in Source (k=300) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -565,7 +565,7 @@ The results are shown in Table \ref{tablemisource400}. We conclude that keeping 
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features based on Mutual Information in Source (k=400) and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features based on Mutual Information in Source (k=400) and applying CORAL with  Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -586,7 +586,7 @@ We combine source and target data disregarding original source labels and assign
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features based on Mutual Information in Source (k=300) combining Source and Target, and applying CORAL. Gaussian Naive Bayes}
+    \caption{Accuracy after selecting features based on Mutual Information in Source (k=300) combining Source and Target, and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
