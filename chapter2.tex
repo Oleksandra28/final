@@ -5,49 +5,35 @@
 
 In this chapter we discuss some of the previous work that has been done in the field of domain adaptation and review some of the relevant research papers.
 
-Domain Adaptation has been researched in the number of various machine learning applications.
+Domain Adaptation has been researched in a number of various machine learning applications, for instance, text classification ~\citep{dai}, bioinformatics ~\citep{eval}, cross-domain image retrieval ~\citep{crossdomimage}, multi-task learning ~\citep{multitaskdeep}, sentiment classification ~\citep{sentmulti}, among others. 
 
-~\citep{crossdomimage} address the problem of cross-domain image retrieval by taking clothing products as a concrete use case. They define their task as follows: given an offline clothing image from the “street” domain, the goal is to retrieve the same or similar clothing items from a large-scale gallery of professional online shopping images. They propose a Dual Attribute-aware Ranking Network (DARN) for retrieval feature learning. DARN consists of two sub-networks, one for each domain with similar structure. Each of the two domain images are fed into each of the two sub-networks.
+~\citep{dai} propose a novel transfer-learning algorithm for text classification based on an EM-based Naive Bayes classifiers. Their solution is to first estimate the initial probabilities under a distribution $D_l$ of one labeled data set, and then use an EM algorithm to revise the model for a different distribution $D_u$ of the test data which are unlabeled. According to ~\citep{dai}, the algorithm is very effective in several different pairs of domains, where the distances between the different distributions are measured using the Kullback--Leibler(KL) divergence. In their experiments, they show that the algorithm outperforms the traditional supervised and semi-supervised learning algorithms when the distributions of the training and test sets are increasingly different.
 
-According to ~\citep{crossdomimage}, the retrieval features from DARN have several advantages compared with the deep features of other proposed networks:
-\begin{itemize}
-  \item by using the dual-structure network, the model can handle the cross-domain problem more appropriately
-  \item in each sub-network, the scenario-specific semantic representation of clothing is elaborately captured by leveraging the tree-structure layers
-  \item based on the semantic representation, the visual similarity constraint enables more effective feature learning for the retrieval problem
-\end{itemize}
+~\citep{eval} propose an approach for the task of splice site prediction. They use a weighted Naïve Bayes classifier, and analyze the three methods for incorporating the target unlabeled data: EM with soft-labels, ST with hard-labels, and also a combination of EM/ST (with hard-labels for the most confidently labeled instances in the current target unlabeled data, and soft-labels for the other instances). They provide empirical results on splice site prediction indicating that using soft labels only can lead to better classifier compared to the other two ways.
 
-To analyze the retrieval performance of deep features, ~\citep{crossdomimage} compares pre-trained networks including AlexNet (pretrained CNN) and pre-trained NIN. They show that the attribute-guided learning is a key factor for retrieval accuracy improvement. They evaluate each individual component of the proposed approach. The authors denote the overall solution as Dual Attribute-aware Rank-ing Network (DARN), the solution without dual structure
-as Attribute-aware Ranking Network (ARN), the solution without dual structure and the ranking loss function as
-Attribute-aware Network (AN).
+~\citep{crossdomimage} propose a Dual Attribute-aware Ranking Network (DARN) for retrieval feature learning. DARN consists of two sub-networks, one for each domain with similar structure. Each of the two domain images are fed into each of the two sub-networks. As ~\citep{crossdomimage} states, the proposed method is different from previous approaches in that it simultaneously embeds semantic attribute information and visual similarity constraints into the feature learning stage, while modeling the discrepancy of the two domains. 
 
-Compared with a single model, the dual-structure network greatly improves the retrieval performance, i.e.,
-the top-20 retrieval accuracy of DARN improves $9.9\%$ when compared with ARN.
+Similarly, ~\citep{multitaskdeep} adopts the deep learning approach, and developes a multi-task DNN for learning representations across multiple tasks. According to the authors, their multi-task DNN approach combines tasks of multiple-domain classification (for query classification) and information retrieval (ranking for web search).
+gains over strong baselines in a comprehensive set of domain adaptation.
 
-As ~\citep{crossdomimage} states, the proposed method is different from previous approaches in that it simultaneously embeds semantic attribute information and visual similarity constraints into the feature learning stage, while modeling the discrepancy of the two domains. ~\citep{crossdomimage} demonstrates the approach in a practical real-world clothing retrieval application, showing substantial improvement over other baselines. 
+Also, the idea of learning from multiple sources is researched by ~\citep{sentmulti} in the area of sentiment classification. ~\citep{sentmulti} propose a new domain adaptation approach which can exploit sentiment knowledge from multiple source domains. They first extract both global and domain-specific sentiment knowledge from the data of multiple source domains using multi-task learning. Then they transfer the knowledge from source domains to target domain with the help of words’ sentiment polarity relations extracted from the unlabeled target domain data. The authors state that experimental results show the effectiveness of the approach in improving cross-domain sentiment classification performance. However, their approach is not quite transferable to other problems. The reason is that it might be difficult to apply their method to other datasets because we would first need to build a sentiment graph, on which the method heavily relies, and this is not scalable and not trivial. 
 
-Similarly, ~\citep{multitaskdeep} adopts the deep learning approach, and developes a multi-task DNN for learning representations across multiple tasks. According to the authors, their multi-task DNN approach combines tasks of multiple-domain classification (for query classification) and information retrieval (ranking for web search), and demonstrates significant gains over strong baselines in a comprehensive set of domain adaptation.
+There has been some research done in the area of disaster management using tweets, by ~\citep{twitterda} and by ~\citep{imran16}, among others. 
 
-The multi-task model combines classification and ranking tasks: query classification is used as the classification task and web search is used as the ranking task. ~\citep{multitaskdeep} writes that the proposed model maps any arbitrary queries $Q$ or documents $D$ into fixed low dimensional vector representations using DNNs. The input is either a query or a document, initially represented as bag-of-words. It goes through a number of layers in the proposed neural network: $l_1$ -– the word hash layer; $l_2$ -– the semantic representation layer; $l_3$ -– the task-specific representation layer. 
-Thus, the lower layers are shared across different tasks, whereas the top layers represent task-specific outputs. 
+~\citep{twitterda} study the usefulness of labeled data from a prior source disaster, together with unlabeled data from the current target disaster to learn domain adaptation classifiers for the target. Experimental results suggest that, for some tasks, source data itself can be useful for classifying target data. However, for tasks specific to a particular disaster, domain adaptation approaches that use target unlabeled data in addition to source labeled data are superior.
 
-According to the results presented in ~\citep{multitaskdeep}, the Multi-Task-DNN robustly outperforms strong baselines across all web search and query classification tasks.
+~\citep{imran16} research the performance of the classifiers trained using different combinations of training sets obtained from past disasters. They perform extensive experimentation on real crisis datasets and show that the past 
+labels are useful when both source and target events are of the same type (e.g. both earthquakes). For similar languages, cross-language domain adaptation is useful, however, when for different languages the performance decreases.
 
-Also, the idea of learning from multiple sources is researched by ~\citep{sentmulti} in the area of sentiment classification. 
+In this work, we first look closely at the approach described in ~\citep{coral} where they propose a simple, effective, and efficient method for unsupervised domain adaptation called CORrelation ALignment (CORAL), and use it in our single-source domain adaptation setting. CORAL aligns the input feature distributions of the source and target domains by exploring their second-order statistics. The method is “frustratingly easy” to implement: the only computation involved is recoloring the whitened source features with the covariance of the target domain. Extensive experiments on standard benchmarks demonstrate the superiority of their method over many existing state-of-the-art methods. These results confirm that CORAL is applicable to multiple features types, including highlyperforming deep features, and to different tasks, including computer vision and natural language processing.
 
-In this paper, the authors propose a new domain adaptation approach which can exploit sentiment knowledge from multiple
-source domains. They first extract both global and domain-specific sentiment knowledge from the data of multiple
-source domains using multi-task learning. Then they transfer them to target domain with the help of words’ sentiment
-polarity relations extracted from the unlabeled target domain data. They manually create two relation extraction rules for opposite sentiment polarity, and two relation extraction rules for coherent sentiment polarity, and build a sentiment graph. Each source domain is decomposed into two components:
-\begin{itemize}
-  \item the global sentiment model is shared by all source domains and is trained in these domains simultaneously
-  \item the domain-specific sentiment model is trained on the labeled data within one source domain and is used to capture the specific sentiment knowledge of this domain
-\end{itemize}
+Furthermore, we adopt the idea proposed in ~\citep{mda} and use it in our multi-source domain adaptation setting. ~\citep{mda} use causal models to represent the relationship between the features $X$ and class label $Y$, and consider possible situations where different modules of the causal model change with the domain. In each situation, they investigate what knowledge is appropriate to transfer and find the optimal target-domain hypothesis. They finally focus on the case where $Y$ is the cause for $X$ with changing $P_Y$ and $P_{X|Y}$, that is, $P_Y$ and $P_{X|Y}$ change independently across domains. Precisely, under appropriate assumptions, the availability of multiple source domains allows a natural way to reconstruct the conditional distribution on the target domain. They propose to model $P_{X|Y}$ (the process to generate effect X from cause Y) on the target domain as a linear mixture of those on source domains, and estimate all involved parameters by matching the target-domain feature distribution. According to ~\citep{mda}, experimental results on both synthetic and real-world data verify their theoretical results.
 
-Furthermore, they mention the domain similary measure based on term distribution, and propose their own domain similarity measure based on similarity between sentiment graphs. Thus, the similarities between target domain and different source domains are also incorporated into the adaptation process. 
 
-The authers state that experimental results on benchmark dataset show the effectiveness of the approach in improving cross-domain sentiment classification performance. 
 
-However, their approach is not quite transferable to other problems. The reason is that it might be difficult to apply their method to other datasets because we would first need to build a sentiment graph, on which the method heavily relies, and this is not scalable and not trivial. 
+
+
+
 
 
 
