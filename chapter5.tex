@@ -3,19 +3,103 @@
 \chapter{Multi-source Domain Adaptation Approach}
 \label{mdachapter}
 
-In this chapter I define the problem of learning from multiple sources in Section ~\ref{mdaproblemdefinitions}, and describe the multi-source domain adaptation algorithm ("MDA") proposed in the paper ~\citep{mda} in Section ~\ref{mdaalg}. Then I discuss the results obtained after applying MDA in Section ~\ref{mdaexperiments}.
+In this chapter, we first define the problem of learning from multiple sources in Section ~\ref{mdaproblemdefinitions}, and then describe the multi-source domain adaptation algorithm ("MDA") proposed in the paper ~\citep{mda} in Section ~\ref{mdaalg}. Finally, we discuss the results obtained after applying MDA in Section ~\ref{mdaexperiments}.
 
 
 %---------------------------------------------------------------------------------------------------------------------
 \section{Problem Definition}
 \label{mdaproblemdefinitions}
 
+We define our goal as follows: given tweets from several source domains, train a model to classify tweets from a target domain. The general intuition is that more data should improve performance. Yet, adding more source data, even when expressed via target features, may not necessarily contribute to a higher classification accuracy. In addition, labeled target data, again, is not available. Thus, we explore one of the methods presented in ~\citep{mda}, specificaly, we adopt the idea of modeling the target domain as a linear mixture of the source domains. 
 
 %---------------------------------------------------------------------------------------------------------------------
 \section{Multi-source Domain Adaptation Algorithm}
 \label{mdaalg}
 
+
+
+
 %---------------------------------------------------------------------------------------------------------------------
 \section{Experiments and Results}
 \label{mdaexperiments}
+
+We present the results obtained when no domain adaptation is performed in Table \ref{multisourcenoda}. The source data is expressed via target features and is described in Table \ref{pairstablemulti}. The binary representation (i.e. \textit{0/1}) for both source and target data is used. The source data from different domains is merged together and treated as a whole.
+
+The target data is divided into five folds for cross-validation ~\citep{hastie}. Each fold in turn is used for testing, and the accuracy is recorded in each run. The average results are reported. The number of instances per class in the source data is varied: the results are recorded for source data having $500$ instances per class, $1000$ instances per class, and $2000$ instances per class. All source data is also used as training data. 
+
+As we can see, using more source data generally improves the performance of the classifier.
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Pairs of Mutli-source--Target Disasters}
+    \begin{tabular}[c]{|c|c|c|}
+        \hline
+        Pair & Source Disaster Event & Target Disaster Event  \\
+        \hline
+        $SH \rightarrow BB$ & 2012 Sandy Hurricane & 2013 Boston Bombings \\
+        $QF \rightarrow BB$ & 2013 Queensland Floods & 2013 Boston Bombings \\
+
+        $SH \rightarrow WT$ & 2012 Sandy Hurricane & 2013 West Texas Explosion \\
+        $BB \rightarrow WT$ & 2013 Boston Bombings & 2013 West Texas Explosion \\
+
+        $SH \rightarrow OT$ & 2012 Sandy Hurricane & 2013 Oklahoma Tornado \\
+        $QF \rightarrow OT$ & 2013 Queensland Floods & 2013 Oklahoma Tornado \\
+        $BB \rightarrow OT$ & 2013 Boston Bombings & 2013 Oklahoma Tornado  \\
+
+        $SH \rightarrow AF$ & 2012 Sandy Hurricane & 2013 Alberta Floods \\
+        $QF \rightarrow AF$ & 2013 Queensland Floods & 2013 Alberta Floods \\
+        $BB \rightarrow AF$ & 2013 Boston Bombings & 2013 Alberta Floods \\
+        \hline
+    \end{tabular}
+    \label{pairstablemulti}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Bernoulli Naive Bayes on multi-source data when no domain adaptation is performed}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+                             
+        $SH, QF \rightarrow BB$ &  0.615428571 & 0.735657143 & 0.596 & 0.688685714  \\ %
+                            
+        $SH, BB \rightarrow WT$ &  0.850383658	& 0.877821702 & 0.90255107 & 	0.930555488  \\%
+                             
+        $SH, QF, BB \rightarrow OT$ &  0.82550285	& 0.845725901 & 	0.84960058 & 	0.826957615\\%
+                             
+        $SH, QF, BB \rightarrow AF$ & 0.72804768 &	0.752038286 & 0.768482834	& 0.775057287 \\ %
+
+
+        \hline
+    \end{tabular}
+    \label{multisourcenoda}
+   \end{center}
+\end{table}
+%==================Table end
+
+We first choose a pair of $SH, QF, BB \rightarrow AF$ to experiment with the idea proposed in \citep{mda}. The results are presented in Table \ref{multisourcemda1}. The columns $500$, $1000$, $2000$ and $Total$ mean that $500$, $1000$, $2000$ and all samples per class per source are taken, respectively, and weights are obtained for each of them separately. 
+
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data when domain adaptation is performed}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\{}
+        \hline
+                             
+        $SH, QF, BB \rightarrow AF$ & 0.705416920268 &	0.753499695679 & 0.723067559343	& 0.709068776628 \\ %
+
+        \hline
+    \end{tabular}
+    \label{multisourcemda1}
+   \end{center}
+\end{table}
+
+
 

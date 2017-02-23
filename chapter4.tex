@@ -330,12 +330,42 @@ Interestingly, when the threshold is set to $0.95$, the number of features retai
 \end{table}
 %==================Table end
 
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL with Bernoulli Naive Bayes. All pairs}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+        $SH \rightarrow QF$ & 0.645647344  &    0.76355232  &  0.773312788  & 0.724891438 \\ %
 
+        $SH \rightarrow BB$ & 0.694285714   &  0.7664  &  0.703314286  & 0.6864 \\ %
+        $QF \rightarrow BB$ & 0.712685714   &  0.703314286  & 0.716342857  & 0.717485714 \\ %
+
+        $SH \rightarrow WT$ & 0.682135879  &   0.735997122  & 0.714882615  & 0.738481467 \\ %
+        $BB \rightarrow WT$ & 0.923893032   &  0.931683902  & 0.93157129   & 0.94241173 \\ %
+
+        $SH \rightarrow OT$ & 0.763017791   &  0.768710137  & 0.795108695  & 0.762413197 \\ %
+        $QF \rightarrow OT$ & 0.796802144   &  0.801283322  & 0.815331232  & 0.815209727 \\ %
+        $BB \rightarrow OT$ & 0.796561919   &  0.791354935  & 0.806612765  & 0.808791942 \\ %
+
+        $SH \rightarrow AF$ & 0.669101929 & 0.701010747 & 0.715869636 & 0.651807358 \\ %
+        $QF \rightarrow AF$ & 0.740105627 & 0.740835257 & 0.742905828 & 0.74838643 \\  %
+        $BB \rightarrow AF$ & 0.685786895 & 0.694311377 & 0.69711321 & 0.695408269 \\ %
+
+
+        \hline
+    \end{tabular}
+    \label{tablevar99adddatanocoral}
+   \end{center}
+\end{table}
+%==================Table end
 
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL with Gaussian Naive Bayes. Additional pairs}
+    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL with Gaussian Naive Bayes. All pairs}
     \begin{tabular}[c]{|c|c|c|c|c|c|}
         \hline
         Pair & 500 & 1000 & 2000 & Total \\
@@ -363,39 +393,8 @@ Interestingly, when the threshold is set to $0.95$, the number of features retai
 \end{table}
 %==================Table end
 
-%==================Table begin
-\begin{table}[ht]
-    \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL with Bernoulli Naive Bayes. Additional pairs}
-    \begin{tabular}[c]{|c|c|c|c|c|c|}
-        \hline
-        Pair & 500 & 1000 & 2000 & Total \\
-        \hline
-        $SH \rightarrow QF$ & 0.645647344  &    0.76355232  &  0.773312788  & 0.724891438 \\
-
-        $SH \rightarrow BB$ & 0.694285714   &  0.7664  &  0.703314286  & 0.6864 \\
-        $QF \rightarrow BB$ & 0.712685714   &  0.703314286  & 0.716342857  & 0.717485714 \\
-
-        $SH \rightarrow WT$ & 0.682135879  &   0.735997122  & 0.714882615  & 0.738481467 \\
-        $BB \rightarrow WT$ & 0.923893032   &  0.931683902  & 0.93157129   & 0.94241173 \\
-
-        $SH \rightarrow OT$ & 0.763017791   &  0.768710137  & 0.795108695  & 0.762413197 \\
-        $QF \rightarrow OT$ & 0.796802144   &  0.801283322  & 0.815331232  & 0.815209727 \\
-        $BB \rightarrow OT$ & 0.796561919   &  0.791354935  & 0.806612765  & 0.808791942 \\
-
-        $SH \rightarrow AF$ & 0.669101929 & 0.701010747 & 0.715869636 & 0.651807358 \\
-        $QF \rightarrow AF$ & 0.740105627 & 0.740835257 & 0.742905828 & 0.74838643 \\  
-        $BB \rightarrow AF$ & 0.685786895 & 0.694311377 & 0.69711321 & 0.695408269 \\
-
-        \hline
-    \end{tabular}
-    \label{tablevar99adddatanocoral}
-   \end{center}
-\end{table}
-%==================Table end
-
 %==================Figure begin
-\begin{figure}
+\begin{figure}[ht]
 \centering
 \caption{Number of features retained after applying Variance Threshold (0.99)}
 \begin{tikzpicture}
@@ -428,7 +427,7 @@ Interestingly, when the threshold is set to $0.95$, the number of features retai
 
 
 %==================Figure begin
-\begin{figure}
+\begin{figure}[ht]
 \centering
 \caption{Number of features retained after applying Variance Threshold (0.95)}
 \begin{tikzpicture}
@@ -460,6 +459,134 @@ Interestingly, when the threshold is set to $0.95$, the number of features retai
 %==================Figure end
 
 
+%==================Figure begin
+\begin{figure}[ht]
+\centering
+\caption{Number of features retained after applying Variance Threshold (0.90)}
+\begin{tikzpicture}
+\begin{axis}[
+    title={Source -- 2013 Boston Bombings, Target -- 2013 Alberta Floods},
+    xlabel={Number of source instances},
+    ylabel={Number of features retained},
+    width=0.8\textwidth,
+    % xmin=900, xmax=10000,
+    % ymin=150, ymax=190,
+    xtick={1000, 2000, 4000, 8750},
+    % ytick={155, 165, 175, 185},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+]
+ 
+\addplot[only marks,
+    color=blue,
+    mark = *
+    %mark=square,
+    ]
+    table {vt_features_90.dat};
+ 
+\end{axis}
+\end{tikzpicture}
+\label{featuresretained90figure}
+\end{figure}
+%==================Figure end
+
+
+We decide to further experiment with this feature selection method, precisely, we now rank features by their variance i.e. calcucating $p(1-p)$ for each feature across all samples, in the descending order. We then take top $k$ features and run the experiments again. The results for $k = 190$ without applying CORAl and with applying CORAL are shown in Table \ref{top190vartablenocoral} and in Table \ref{top190vartablecoral}, respectively, and the results for $k = 170$ with applying CORAL are shown in Table \ref{top170vartablecoral}.
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after ranking features by variance in the descending order, and selecting top k features (k=190), without applying CORAL with Bernoulli Naive Bayes. All pairs}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+        $SH \rightarrow QF$ &  0.650399414   & 0.77138584   & 0.78179063   & 0.730799495 \\
+
+        $SH \rightarrow BB$ &  0.693485714   & 0.766171429  & 0.7048   & 0.692342857 \\
+        $QF \rightarrow BB$ &  0.709714286   & 0.710057143  & 0.718628571  & 0.725714286 \\
+
+        $SH \rightarrow WT$ &  0.681909635  & 0.735659031 & 0.7162381 & 0.73915905 \\
+        $BB \rightarrow WT$ &  0.924231696   & 0.931345237  & 0.932022884  & 0.942976255 \\
+
+        $SH \rightarrow OT$ &  0.766046699   & 0.775854974  & 0.804795391  & 0.778155509 \\
+        $QF \rightarrow OT$ &  0.801041925   & 0.804068706  & 0.818116396  & 0.823080443 \\
+        $BB \rightarrow OT$ &  0.798257348   & 0.790748508  & 0.807339011  & 0.81714736 \\
+
+        $SH \rightarrow AF$ &  0.67555547    & 0.710753775  & 0.718305616  & 0.658506134 \\
+        $QF \rightarrow AF$ &  0.744489856   & 0.742174641  & 0.746437142  & 0.752405103\\
+        $BB \rightarrow AF$ &  0.694069181   & 0.70393327   & 0.702228626  & 0.693703105 \\
+
+        \hline
+    \end{tabular}
+    \label{top190vartablenocoral}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after ranking features by variance in the descending order, selecting top k features (k=190), and applying CORAL with Gaussian Naive Bayes. All pairs}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+        $SH \rightarrow QF$ & 0.78114606  & 0.858591907 & 0.860391309 & 0.830336061    \\ %
+                              
+        $SH \rightarrow BB$ & 0.793714286 & 0.7704      & 0.818742857 & 0.766857143    \\ %
+        $QF \rightarrow BB$ & 0.753828571 & 0.791085714 & 0.810285714 & 0.670628571    \\%
+                               
+        $SH \rightarrow WT$ & 0.791216081 & 0.741531547 & 0.686653802 & 0.832543181     \\%
+        $BB \rightarrow WT$ & 0.883921163 & 0.945686079 & 0.948508832 & 0.95076769     \\%
+                               
+        $SH \rightarrow OT$ & 0.850326605 & 0.866917695 & 0.860378551 & 0.770045156    \\%
+        $QF \rightarrow OT$ & 0.806971048 & 0.86643248  & 0.867402763 & 0.827076627    \\%
+        $BB \rightarrow OT$ & 0.792201513 & 0.851418247 & 0.81460484  & 0.827200625     \\%
+                               
+        $SH \rightarrow AF$ & 0.771767948 & 0.834732001 & 0.863352517 & 0.853122574  \\ %
+        $QF \rightarrow AF$ & 0.722325697 & 0.806237216 & 0.816832789 & 0.759592573 \\  %
+        $BB \rightarrow AF$ & 0.652545809 & 0.705151075 & 0.70296389  & 0.771159157  \\%
+
+        \hline
+    \end{tabular}
+    \label{top190vartablecoral}
+   \end{center}
+\end{table}
+%==================Table end
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after ranking features by variance in the descending order, selecting top k features (k=170), and applying CORAL with Gaussian Naive Bayes. All pairs}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+        $SH \rightarrow QF$ & 0.744414351 & 0.842666149 & 0.854740156   & 0.83958338   \\ %
+                             
+        $SH \rightarrow BB$ & 0.789714286 & 0.763085714 & 0.827428571   & 0.765942857   \\ %
+        $QF \rightarrow BB$ & 0.812914286 & 0.8128  & 0.808457143       & 0.667657143   \\%
+                             
+        $SH \rightarrow WT$ & 0.80826528  & 0.739837334 & 0.676491072 & 0.834688224    \\%
+        $BB \rightarrow WT$ & 0.886856528 & 0.944217854 & 0.945460409 & 0.949525462   \\%
+                             
+        $SH \rightarrow OT$ & 0.852627361 & 0.858683049 & 0.858319706 & 0.75309219   \\%
+        $QF \rightarrow OT$ & 0.835914399 & 0.866071557 & 0.868976759 & 0.823080516   \\%
+        $BB \rightarrow OT$ & 0.793046184 & 0.84390794  & 0.824658106 & 0.827927604    \\%
+                             
+        $SH \rightarrow AF$ & 0.76263675  & 0.8427712   & 0.858968584 & 0.845937625 \\ %
+        $QF \rightarrow AF$ & 0.73230981  & 0.807819613 & 0.814884317 & 0.791254449 \\  %
+        $BB \rightarrow AF$ & 0.718186778 & 0.711848591 & 0.738403725 & 0.788696593 \\%
+
+        \hline
+    \end{tabular}
+    \label{top170vartablecoral}
+   \end{center}
+\end{table}
+%==================Table end
 
 %-------------------------------------------------------------------------------------
 \subsubsection{Truncated SVD aka Latent Semantic Analysis}
@@ -469,7 +596,7 @@ This transformer performs linear dimensionality reduction by means of truncated 
 The results on our data show that Truncated SVD does not contribute to better accuracy. We manually choose the number of components $k$. Concretely, we experiment with $k=677$, choosing this values as $50\%$ of the original number of features ($1334$), with $k=400$ and with $k=170$, choosing this value as an average number of features obtained after Variance Threshold discussed in \ref{varthressub} that give the best performance so far.
 
 %==================Table begin
-\begin{table}[ht]
+\begin{table}[!h]%[ht]
     \begin{center}
     \caption{Accuracy after selecting features via Truncated SVD (k=677) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
@@ -487,7 +614,7 @@ The results on our data show that Truncated SVD does not contribute to better ac
 %==================Table end
 
 %==================Table begin
-\begin{table}[ht]
+\begin{table}[!h]%[ht]
     \begin{center}
     \caption{Accuracy after selecting features via Truncated SVD (k=400) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}
@@ -505,7 +632,7 @@ The results on our data show that Truncated SVD does not contribute to better ac
 %==================Table end
 
 %==================Table begin
-\begin{table}[ht]
+\begin{table}[!h]%[ht]
     \begin{center}
     \caption{Accuracy after selecting features via Truncated SVD (k=170) and applying CORAL with Gaussian Naive Bayes}
     \begin{tabular}[c]{|c|c|c|c|c|}

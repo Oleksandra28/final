@@ -18,12 +18,12 @@
 \contentsline {subsection}{\numberline {4.3.2}Feature Selection}{18}{subsection.4.3.2}
 \contentsline {subsubsection}{Principle Component Analysis}{18}{section*.6}
 \contentsline {subsubsection}{Variance Threshold}{18}{section*.7}
-\contentsline {subsubsection}{Truncated SVD aka Latent Semantic Analysis}{20}{section*.8}
-\contentsline {subsection}{\numberline {4.3.3}Mutual Information}{23}{subsection.4.3.3}
-\contentsline {chapter}{\numberline {5}Multi-source Domain Adaptation Approach}{28}{chapter.5}
-\contentsline {section}{\numberline {5.1}Problem Definition}{28}{section.5.1}
-\contentsline {section}{\numberline {5.2}Multi-source Domain Adaptation Algorithm}{28}{section.5.2}
-\contentsline {section}{\numberline {5.3}Experiments and Results}{28}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusions}{29}{chapter.6}
-\contentsline {chapter}{\numberline {7}Future Work}{30}{chapter.7}
-\contentsline {chapter}{Bibliography}{31}{section*.9}
+\contentsline {subsubsection}{Truncated SVD aka Latent Semantic Analysis}{21}{section*.8}
+\contentsline {subsubsection}{Mutual Information}{21}{section*.9}
+\contentsline {chapter}{\numberline {5}Multi-source Domain Adaptation Approach}{29}{chapter.5}
+\contentsline {section}{\numberline {5.1}Problem Definition}{29}{section.5.1}
+\contentsline {section}{\numberline {5.2}Multi-source Domain Adaptation Algorithm}{30}{section.5.2}
+\contentsline {section}{\numberline {5.3}Experiments and Results}{30}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusions}{32}{chapter.6}
+\contentsline {chapter}{\numberline {7}Future Work}{33}{chapter.7}
+\contentsline {chapter}{Bibliography}{34}{section*.10}
