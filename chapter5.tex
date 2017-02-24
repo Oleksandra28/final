@@ -83,14 +83,14 @@ As we can see, using more source data generally improves the performance of the 
 \end{table}
 %==================Table end
 
-We first choose a pair of $SH, QF, BB \rightarrow AF$ to experiment with the idea proposed in \citep{mda}. The results are presented in Table \ref{multisourcemda1}. The columns $500$, $1000$, $2000$ and $Total$ mean that $500$, $1000$, $2000$ and all samples per class per source are taken, respectively, and weights are obtained for each of them separately. 
+We first choose a pair of $SH, QF, BB \rightarrow AF$ to experiment with the idea proposed in \citep{mda}. The results are presented in Table \ref{multisourcemda1}. The columns $500$, $1000$, $2000$ and $Total$ mean that $500$, $1000$, $2000$ and all samples per class per source are taken, respectively, and weights are obtained for each of them separately. The weights are presented in Table \ref{sampleweights}, which can be interpreted as follows: the weights for a specific class ($0$ / "Neg" or $1$ / "Pos") across the sources should sum up to $1$. The more one source is similar to the target, the more weight it receives. Also, when the source data is balanced i.e. $500$, $1000$, $2000$ instances per class per source are used, the weights do not differ much, for example, the weights for the negative class when $500$ intances are used, are almost identical across all the three sources: $0.33779$, $0.33601$ and $0.3262$ for $SH$, $QF$ and $BB$, respectively. One of the possible interpretations might be that since the data across sources is balanced, they contribute the equal amount of information for the target.
 
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data when domain adaptation is performed}
+    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA}
     \begin{tabular}[c]{|c|c|c|c|c|c|}
         \hline
-        Pair & 500 & 1000 & 2000 & Total \\{}
+        Pair & 500 & 1000 & 2000 & Total \\
         \hline
                              
         $SH, QF, BB \rightarrow AF$ & 0.705416920268 &	0.753499695679 & 0.723067559343	& 0.709068776628 \\ %
@@ -101,5 +101,55 @@ We first choose a pair of $SH, QF, BB \rightarrow AF$ to experiment with the ide
    \end{center}
 \end{table}
 
+
+\begin{table}[ht]
+    \begin{center}
+    \caption{Weights obtained for $SH, QF, BB \rightarrow AF$ }
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+
+        \hline
+        Source & Class & 500 & 1000 & 2000 & Total \\
+        \hline
+    	\multirow{2}{*}{$SH$} &Neg & 0.33779 & 0.33864 & 0.35149 & 0.38421 \\ & Pos  & 0.34725 & 0.36871 & 0.37865  & 0.38766 \\ 
+    	\hline
+    	\multirow{2}{*}{$QF$} &Neg  & 0.33601 & 0.34244 & 0.34336 & 0.38544 \\ & Pos  & 0.30849 & 0.25878 & 0.23889  & 0.15128 \\
+    	\hline
+    	\multirow{2}{*}{$BB$} &Neg  & 0.3262  & 0.31891 & 0.30515 & 0.23035 \\ & Pos  & 0.34426 & 0.37252 & 0.38246  & 0.46105 \\ 
+
+        \hline
+    \end{tabular}
+    \label{sampleweights}
+   \end{center}
+\end{table}
+
+%Since we work with \textit{0/1} representation for data, which is expressed via target features, the data is very sparse (i.e. contains a lot of zeros). Thus, the weights 
+
+We decide to further experiment with multi-source domain adaptation. Precisely, motivated by the improved results discussed in Chapter \ref{coralchapter}, we apply the same logic to the multi-source case: we first select features based on Variance Threshold, and then run CORAL. The transformed data is used in training of the Gaussian Naive Bayes classifier. The results are presented in Table \ref{multisourcenvt99coral}.
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data after applying Variance Threshold (0.99) and CORAL}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+                             
+        $SH, QF \rightarrow BB$ & 0.811885714 & 	0.7952	& 0.783542857	& 0.795771429  \\ %
+                            
+        $SH, BB \rightarrow WT$ & 0.924119594 & 	0.943992949	& 0.94241173 & 	0.932474734   \\%
+                             
+        $SH, QF, BB \rightarrow OT$ &  0.868976026	& 0.862679013	& 0.820055275	& 0.840034068 \\%
+                             
+        $SH, QF, BB \rightarrow AF$ & 0.862623332	& 0.866762695	& 0.879185605	& 0.857628755 \\ %
+
+
+        \hline
+    \end{tabular}
+    \label{multisourcenvt99coral}
+   \end{center}
+\end{table}
+%==================Table end
 
 

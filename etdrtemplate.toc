@@ -1,7 +1,7 @@
 \contentsline {chapter}{List of Figures}{vi}{chapter*.2}
 \contentsline {chapter}{List of Tables}{vii}{chapter*.3}
-\contentsline {chapter}{Acknowledgements}{viii}{section*.4}
-\contentsline {chapter}{Dedication}{ix}{section*.5}
+\contentsline {chapter}{Acknowledgements}{ix}{section*.4}
+\contentsline {chapter}{Dedication}{x}{section*.5}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Basic Terminology}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Background on Disaster Management}{3}{section.1.2}
@@ -24,6 +24,6 @@
 \contentsline {section}{\numberline {5.1}Problem Definition}{29}{section.5.1}
 \contentsline {section}{\numberline {5.2}Multi-source Domain Adaptation Algorithm}{30}{section.5.2}
 \contentsline {section}{\numberline {5.3}Experiments and Results}{30}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusions}{32}{chapter.6}
-\contentsline {chapter}{\numberline {7}Future Work}{33}{chapter.7}
-\contentsline {chapter}{Bibliography}{34}{section*.10}
+\contentsline {chapter}{\numberline {6}Conclusions}{33}{chapter.6}
+\contentsline {chapter}{\numberline {7}Future Work}{34}{chapter.7}
+\contentsline {chapter}{Bibliography}{35}{section*.10}
