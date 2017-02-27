@@ -23,7 +23,7 @@
 \contentsline {chapter}{\numberline {5}Multi-source Domain Adaptation Approach}{30}{chapter.5}
 \contentsline {section}{\numberline {5.1}Problem Definition}{30}{section.5.1}
 \contentsline {section}{\numberline {5.2}Multi-source Domain Adaptation Algorithm}{31}{section.5.2}
-\contentsline {section}{\numberline {5.3}Experiments and Results}{31}{section.5.3}
-\contentsline {chapter}{\numberline {6}Conclusions}{34}{chapter.6}
-\contentsline {chapter}{\numberline {7}Future Work}{35}{chapter.7}
-\contentsline {chapter}{Bibliography}{36}{section*.10}
+\contentsline {section}{\numberline {5.3}Experiments and Results}{32}{section.5.3}
+\contentsline {chapter}{\numberline {6}Conclusions}{35}{chapter.6}
+\contentsline {chapter}{\numberline {7}Future Work}{36}{chapter.7}
+\contentsline {chapter}{Bibliography}{37}{section*.10}

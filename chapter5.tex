@@ -16,13 +16,13 @@ We define our goal as follows: given tweets from several source domains, train a
 \section{Multi-source Domain Adaptation Algorithm}
 \label{mdaalg}
 
-Notation: 
-$X$ -- features
-$Y$ -- class labels
-$P_Y$ -- a distribution of labels / cause
-$P_{X|Y}$ can be interpreted as the causal mechanism to generate effect $X$ from cause $Y$. 
-$V_S$ -- a domain-specific selection variable
-$P_{X|Y, V_S}$ -- the conditional $P_{X|Y}$ in the domain associated with $V_S$ 
+Notation: \\
+$X$ -- features \\
+$Y$ -- class labels \\
+$P_Y$ -- a distribution of labels / cause \\
+$P_{X|Y}$ -- a causal mechanism to generate effect $X$ from cause $Y$ \\
+$V_S$ -- a domain-specific selection variable \\
+$P_{X|Y, V_S}$ -- a conditional $P_{X|Y}$ in the domain associated with $V_S$
 
 \citep{mda} focus on multi-source domain adaptation from a causal point of view, precisely, they focus on a typical domain adaptation scenario where both $P_Y$ and $P_{X|Y}$ change across domains, but their changes are independent from each other. They assume that the source domains contain rich information such that for each class, $P_{X|Y}^t$ can be approximated by a linear mixture of $P_{X|Y}$ on source domains. 
 
@@ -30,9 +30,7 @@ $P_{X|Y, V_S}$ -- the conditional $P_{X|Y}$ in the domain associated with $V_S$
 
 Consider $P_{X|Y, V_S}$ as the mechanism to generate features from the class labels given the domain. Next, imagine that there exist $L$ elementary "sub-mechanisms", or class conditional feature distributions, $\tilde{P}_{X|Y}^{(l)}$, $l = 1, \cdots, L$, so that the mechanism in each domain, $P_{X|Y, V_S}$, is a mixture of those sub-mechanisms, i.e. $P_{X|Y=c_j, V_S} = \sum_{l=1}^{L} \tilde{a}_{V_S, j, l} \tilde{P}_{X|Y}^{(l)}$, where ${\aa}_{V_S, j, l}$ depend on both $V_S$ and $j, {\aa}_{V_S, l} \geqslant 0$, and $\sum_{l=1}^{L} \aa_{V_S, j, l} = 1$. 
 
-Consequently, in the multi-source domain adaptation scenario, if for each $j$, the rank of $\left \{P_{X|Y=c_j}^{(i)} | i = 1, \cdots, n \right \}$ is equal to $L$, $P_{X|Y=c_j}^{t}$ can always be represented as a linear mixture of $P_{X|Y=c_j}^{(i)}$, as \citep{mda} state.
-
-
+Consequently, in the multi-source domain adaptation scenario, if for each $j$, the rank of $\left \{P_{X|Y=c_j}^{(i)} | i = 1, \cdots, n \right \}$ is equal to $L$, $P_{X|Y=c_j}^{t}$ can always be represented as a linear mixture of $P_{X|Y=c_j}^{(i)}$, as \citep{mda} state. For each $y$, $P_{X|Y=y}^{t}$ is a mixture of $P_{X|Y=y}$ on the source domains, i.e. there exist $a_{ij}$, which satisfy the constraint $\sum_{i=1}^{n} \a_{ij} = 1$ for all $j$, such that \[ P_{X|Y=c_j}^{new} = \sum_{i=1}^{n} a_{ij}P_{X|Y=c_j}^{(i)}\] is equal to $P_{X|Y=c_j}^{t}$, where $c_j$ is the $j$th possible value of $Y$. 
 
 
 %---------------------------------------------------------------------------------------------------------------------
