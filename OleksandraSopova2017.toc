@@ -26,5 +26,5 @@
 \contentsline {section}{\numberline {5.2}Multi-source Domain Adaptation Algorithm}{31}{section.5.2}
 \contentsline {section}{\numberline {5.3}Experiments and Results}{32}{section.5.3}
 \contentsline {chapter}{\numberline {6}Conclusions}{36}{chapter.6}
-\contentsline {chapter}{\numberline {7}Future Work}{37}{chapter.7}
-\contentsline {chapter}{Bibliography}{38}{section*.6}
+\contentsline {chapter}{\numberline {7}Future Work}{38}{chapter.7}
+\contentsline {chapter}{Bibliography}{39}{section*.6}

@@ -11,19 +11,20 @@ We re-state the questions raised in Section \ref{colcusionschapter} of Chapter \
 \begin{itemize}
   \item is labeled source data sufficient to train a supervised learning model to make accurate predictions on target data?
 
+  Using only labeled source data in training may be satisfactory performance. For instance, the average accuracy of $0.75$ according to the results in Table \ref{table3}, when all labeled source data is used. This may be satisfactory but there is also a possibility for improvement, thus, we apply domain adaptation in the attempt to increase the accuracy of the classifier.
 
+  \item does single-source domain adaptation result in the higher accuracy as compared to supervised learning from source?
 
-
-  \item does single-source domain adaptation result in the higher accuracy?
-
-
-
-
-
+  Applying feature selection (Variance Threshold), and then applying CORAL, results in the higher accuracy as compared to supervised learning from source, according to the results presented in Table \ref{tablevar99}. For example, the average accuracy increases up to $0.81$, when all labeled source data is used. 
 
   \item does multi-source domain adaptation result in the higher accuracy as compared to single-source domain adaptation?
 
+  Multi-source domain adaptation results in the higher accuracy as compared to single-source domain adaptation, as shown in Table \ref{multisourcenvt99coral}. For example, the results are consistently higher for the pair $SH, QF, BB \rightarrow AF$: $0.86$, $0.86$, $0.87$, $0.85$ per $500$, $1000$, $2000$, $all$ instances per source, as compared to single-source domain adaptation results of $0.73$, $0.78$, $0.80$, $0.81$, respectively. One intuitive explanation might be that more sources bring more training data, and since we apply domain adaptation to all the sources, we minimize the possible domain discrepancy, but also extract useful information.
 
+
+\end{itemize}
+
+In conclusion, we can see that domain adaptation becomes essential when there may be domain shift between source data and target data.
 
   
 \end{itemize}

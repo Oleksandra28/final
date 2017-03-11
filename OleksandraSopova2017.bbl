@@ -1,4 +1,4 @@
-\begin{thebibliography}{25}
+\begin{thebibliography}{26}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -45,12 +45,22 @@ Junshi Huang, Rogerio Feris, Qiang Chen, and Shuicheng Yan.
 \newblock In \emph{ICCV '15 Proceedings of the 2015 IEEE International
   Conference on Computer Vision (ICCV)}, pages 1062--1070, 2015.
 
-\bibitem[Imran et~al.(2016)Imran, Mitra, and Srivastava]{imran16}
+\bibitem[Imran et~al.(2016{\natexlab{a}})Imran, Mitra, and Srivastava]{imran16}
 M.~Imran, P.~Mitra, and J.~Srivastava.
 \newblock Cross-language domain adaptation for classifying crisis-related short
   messages.
 \newblock In \emph{In Proceedings of the ISCRAM 2016 Conference – Rio de
-  Janeiro, Brazil}, 2016.
+  Janeiro, Brazil}, 2016{\natexlab{a}}.
+
+\bibitem[Imran et~al.(2016{\natexlab{b}})Imran, Mitra, and
+  Castillo]{imran2016lrec}
+Muhammad Imran, Prasenjit Mitra, and Carlos Castillo.
+\newblock Twitter as a lifeline: Human-annotated twitter corpora for nlp of
+  crisis-related messages.
+\newblock In \emph{Proceedings of the Tenth International Conference on
+  Language Resources and Evaluation (LREC 2016)}, Paris, France, may
+  2016{\natexlab{b}}. European Language Resources Association (ELRA).
+\newblock ISBN 978-2-9517408-9-1.
 
 \bibitem[Kaul(2016)]{twittercrisisblog}
 Mahima Kaul.

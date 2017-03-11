@@ -230,7 +230,7 @@ The initial value of $sigma$ equal to $1.1314$ is used in the original paper, so
 %==================Table end
 
 
-We decide to further experiment with multi-source domain adaptation. Precisely, motivated by the improved results discussed in Chapter \ref{coralchapter}, we apply the same logic to the multi-source case: we first select features based on Variance Threshold, and then run CORAL. The transformed data is used in training of the Gaussian Naive Bayes classifier. The results are presented in Table \ref{multisourcenvt99coral}.
+We decide to further experiment with multi-source domain adaptation. Precisely, motivated by the improved results discussed in Chapter \ref{coralchapter}, we apply the same logic to the multi-source case: we first select features based on Variance Threshold, and then run CORAL. The transformed data is used in training of the Gaussian Naive Bayes classifier. The results are presented in Table \ref{multisourcenvt99coral}. We can see that the accuracy increases across all pairs, e.g. from $0.61$, when no domain adaptation is performed, to $0.81$, after applying feature selection and CORAL, for the pair $SH, QF \rightarrow BB$, when $500$ samples per class are used.
 
 
 %==================Table begin
@@ -258,4 +258,30 @@ We decide to further experiment with multi-source domain adaptation. Precisely, 
 \end{table}
 %==================Table end
 
+In addition, we also confirm that applying CORAL contributes to the accuracy improvement by running an additional set of experiments. Precisely, we do not apply CORAL but we do apply feature selection (Variance Threshold). The results are presented in Table \ref{multisourcenvt99}. We can see that feature selection by itself improves performance, although the accuracy is still lower than when CORAL is applied.
 
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy with Bernoulli Naive Bayes on multi-source data after applying Variance Threshold (0.99)}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+                             
+        $SH, QF \rightarrow BB$ & 0.727428571 &  0.7704  & 0.734285714 & 0.749714286 \\ %
+                            
+        $SH, BB \rightarrow WT$ &  0.92118289   &  0.928410509  & 0.926264574  & 0.924796731  {}\\%
+                             
+        $SH, QF, BB \rightarrow OT$ &  0.836763617  &  0.823445032  & 0.82925727   & 0.839428228 \\%
+                             
+        $SH, QF, BB \rightarrow AF$ & 0.740836072    & 0.741079455  & 0.748629961  & 0.73413774 \\ %
+
+
+        \hline
+    \end{tabular}
+    \label{multisourcenvt99}
+   \end{center}
+\end{table}
+%==================Table end

@@ -4,45 +4,45 @@ The top-level auxiliary file: OleksandraSopova2017.aux
 The style file: plainnat.bst
 Database file #1: references.bib
 Warning--empty publisher in terms
-You've used 25 entries,
+You've used 26 entries,
             2773 wiz_defined-function locations,
-            716 strings with 10059 characters,
-and the built_in function-call counts, 12588 in all, are:
-= -- 1100
-> -- 691
+            723 strings with 10389 characters,
+and the built_in function-call counts, 13063 in all, are:
+= -- 1143
+> -- 721
 < -- 23
-+ -- 235
-- -- 210
-* -- 905
-:= -- 1808
-add.period$ -- 76
-call.type$ -- 25
-change.case$ -- 140
++ -- 246
+- -- 219
+* -- 949
+:= -- 1882
+add.period$ -- 81
+call.type$ -- 26
+change.case$ -- 146
 chr.to.int$ -- 25
-cite$ -- 51
-duplicate$ -- 636
-empty$ -- 1086
-format.name$ -- 243
-if$ -- 2755
-int.to.chr$ -- 1
+cite$ -- 53
+duplicate$ -- 660
+empty$ -- 1125
+format.name$ -- 253
+if$ -- 2856
+int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 24
-newline$ -- 134
-num.names$ -- 100
-pop$ -- 374
+missing$ -- 25
+newline$ -- 140
+num.names$ -- 104
+pop$ -- 388
 preamble$ -- 1
-purify$ -- 120
+purify$ -- 125
 quote$ -- 0
-skip$ -- 539
+skip$ -- 548
 stack$ -- 0
-substring$ -- 442
-swap$ -- 149
+substring$ -- 444
+swap$ -- 153
 text.length$ -- 12
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 250
+type$ -- 261
 warning$ -- 1
-while$ -- 111
+while$ -- 114
 width$ -- 0
-write$ -- 320
+write$ -- 336
 (There was 1 warning)

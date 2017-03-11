@@ -37,5 +37,6 @@
 \contentsline {table}{\numberline {5.8}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=10)}}{35}{table.5.8}
 \contentsline {table}{\numberline {5.9}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=100)}}{35}{table.5.9}
 \contentsline {table}{\numberline {5.10}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying Variance Threshold (0.99) and CORAL}}{35}{table.5.10}
+\contentsline {table}{\numberline {5.11}{\ignorespaces Accuracy with Bernoulli Naive Bayes on multi-source data after applying Variance Threshold (0.99)}}{35}{table.5.11}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
