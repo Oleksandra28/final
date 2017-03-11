@@ -7,7 +7,7 @@
 \BOOKMARK [0][-]{chapter.1}{Introduction}{}% 7
 \BOOKMARK [1][-]{section.1.1}{Basic Terminology}{chapter.1}% 8
 \BOOKMARK [1][-]{section.1.2}{Background on Disaster Management}{chapter.1}% 9
-\BOOKMARK [1][-]{section.1.3}{Problem Definition}{chapter.1}% 10
+\BOOKMARK [1][-]{section.1.3}{Problem Definition and Approach Overview}{chapter.1}% 10
 \BOOKMARK [0][-]{chapter.2}{Related work}{}% 11
 \BOOKMARK [0][-]{chapter.3}{Data Description}{}% 12
 \BOOKMARK [1][-]{section.3.1}{Original Dataset}{chapter.3}% 13
@@ -15,13 +15,14 @@
 \BOOKMARK [0][-]{chapter.4}{Single-source Domain Adaptation Approach}{}% 15
 \BOOKMARK [1][-]{section.4.1}{Problem Definition}{chapter.4}% 16
 \BOOKMARK [1][-]{section.4.2}{Correlation Alignment Algorithm}{chapter.4}% 17
-\BOOKMARK [1][-]{section.4.3}{Experiments and Results}{chapter.4}% 18
-\BOOKMARK [2][-]{subsection.4.3.1}{Preliminary Results without Domain Adaptation}{section.4.3}% 19
-\BOOKMARK [2][-]{subsection.4.3.2}{Feature Selection}{section.4.3}% 20
-\BOOKMARK [0][-]{chapter.5}{Multi-source Domain Adaptation Approach}{}% 21
-\BOOKMARK [1][-]{section.5.1}{Problem Definition}{chapter.5}% 22
-\BOOKMARK [1][-]{section.5.2}{Multi-source Domain Adaptation Algorithm}{chapter.5}% 23
-\BOOKMARK [1][-]{section.5.3}{Experiments and Results}{chapter.5}% 24
-\BOOKMARK [0][-]{chapter.6}{Conclusions}{}% 25
-\BOOKMARK [0][-]{chapter.7}{Future Work}{}% 26
-\BOOKMARK [0][-]{section*.10}{Bibliography}{}% 27
+\BOOKMARK [1][-]{section.4.3}{Naive Bayes Classifier}{chapter.4}% 18
+\BOOKMARK [1][-]{section.4.4}{Experiments and Results}{chapter.4}% 19
+\BOOKMARK [2][-]{subsection.4.4.1}{Results for Supervised Learning from Source Data}{section.4.4}% 20
+\BOOKMARK [2][-]{subsection.4.4.2}{Results after Applying Feature Selection}{section.4.4}% 21
+\BOOKMARK [0][-]{chapter.5}{Multi-source Domain Adaptation Approach}{}% 22
+\BOOKMARK [1][-]{section.5.1}{Problem Definition}{chapter.5}% 23
+\BOOKMARK [1][-]{section.5.2}{Multi-source Domain Adaptation Algorithm}{chapter.5}% 24
+\BOOKMARK [1][-]{section.5.3}{Experiments and Results}{chapter.5}% 25
+\BOOKMARK [0][-]{chapter.6}{Conclusions}{}% 26
+\BOOKMARK [0][-]{chapter.7}{Future Work}{}% 27
+\BOOKMARK [0][-]{section*.6}{Bibliography}{}% 28

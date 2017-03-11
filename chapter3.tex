@@ -4,7 +4,7 @@
 \chapter{Data Description}
 \label{datadescription}
 
-In this chapter, we first present the original dataset in Section \ref{originaldataset}, and then describe the operations performed on the data (i.e. preprocessing) in Section \ref{datapreprocessing}. 
+In this chapter, we first present the original dataset in Section \ref{originaldataset}, and then describe the operations performed on the data (i.e., preprocessing) in Section \ref{datapreprocessing}. 
 
 %---------------------------------------------------------------------------------------------------------------------
 \section{Original Dataset}
@@ -15,7 +15,7 @@ In this work, we use the dataset CrisisLexT6 ~\citep{data}. The dataset consists
 %==================Table 1 begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Original Dataset}
+    \caption{Original CrisisLeXT6 Dataset}
     \begin{tabular}[c]{|c|c|c|c|}
         \hline
         Crisis & On-topic & Off-topic & Total \\
@@ -50,12 +50,12 @@ The following cleaning steps have been taken ~\citep{twitterda}:
   \item duplicate tweets and empty tweets (that have no characters left after the cleaning) are removed from the data sets
 \end{itemize}
 
-The amount of tweets per class for each disaster has reduced and is presented in Table \ref{aftercleaningdatasettable}.
+The number of tweets per class for each disaster was reduced by the preprocessing and is presented in Table \ref{aftercleaningdatasettable}.
 
 %==================Table 1 begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Dataset after preprocessing}
+    \caption{Dataset CrisisLeXT6 after preprocessing}
     \begin{tabular}[c]{|c|c|c|c|}
         \hline
         Crisis & On-topic & Off-topic & Total \\
@@ -80,12 +80,12 @@ After preprocessing, the source tweets are expressed via target features i.e. vi
 \begin{table}[ht]
     \begin{center}
     \caption{Example of bag-of-words representation}
-    \begin{tabular}[c]{|c|c|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}[l]{|c|c|c|c|c|c|c|c|c|c|c|c|}
         \hline
-        Sample Tweet & life & is & real & now & New & York & has & been & real & travelling & to \\ 
+        Sample Tweet & life & is & real & now & New & York & has & been & real & travel & to \\ 
         \hline
         Life is real now & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-        Travelling to New York now & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\
+        Travel to New York now & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 1 & 1 \\
         New York has been real & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 0 & 0 \\
         \hline
     \end{tabular}

@@ -3,13 +3,13 @@
 \chapter{Single-source Domain Adaptation Approach}
 \label{coralchapter}
 
-In this chapter, we define the problem of learning from a single source in Section ~\ref{coralproblemdefinitions}, and describe the correlation alignment algorithm ("CORAL") proposed in the paper ~\citep{coral} in Section ~\ref{coralalg}. Then we discuss the results obtained after applying CORAL in Section ~\ref{coralexperiments}.
+In this chapter, we define the problem of learning from a single source in Section ~\ref{coralproblemdefinitions}, and describe the correlation alignment algorithm ("CORAL") proposed in the paper ~\citep{coral} in Section ~\ref{coralalg}. Then, we discuss the results obtained after applying CORAL in Section ~\ref{coralexperiments}.
 
 %---------------------------------------------------------------------------------------------------------------------
 \section{Problem Definition}
 \label{coralproblemdefinitions}
 
-We define our goal as follows: given tweets from a single source domain, train a model to classify tweets from a target domain. However, direct usage of source data may not give good performance, even if it is expressed via target features. So, we attempt to perform some transformations on source data to align its distribution with the target data distribution, assuming that labels for the target data are not available. As a possible solution, we adopt the method described in ~\citep{coral}, which minimizes the domain shift by aligning the second-order statistics of source and target distributions, without requiring any target labels. 
+We define our goal as follows: given labeled tweets from a single source domain, and unlabeled tweets from the target domain, train a model to classify tweets from the target domain. Direct usage of source data may not give good performance, even if it is expressed via target features. So, we attempt to perform some transformations on source data to align its distribution with the unlabeled target data distribution, assuming that labels for the target data are not available. As a possible solution, we adopt the method described in ~\citep{coral}, which minimizes the domain shift by aligning the second-order statistics of source and target distributions, without requiring any target labels. 
 
 
 
@@ -17,7 +17,7 @@ We define our goal as follows: given tweets from a single source domain, train a
 \section{Correlation Alignment Algorithm}
 \label{coralalg}
 
-~\citep{coral} present an extremely simple domain adaptation method --- CORrelation ALignment (CORAL) --- which works by aligning the distributions of the source and target features in an unsupervised manner. They propose to match the distributions by aligning the second-order statistics, namely, the covariance. More concretely, as ~\citep{coral} states, CORAL aligns the distributions by re-coloring whitened source features with the covariance of the target distribution. CORAL is simple and efficient, as the only computations it needs are:
+~\citet{coral} present an extremely simple domain adaptation method --- CORrelation ALignment (CORAL) --- which works by aligning the distributions of the source and target features in an unsupervised manner. They propose to match the distributions by aligning the second-order statistics, namely, the covariance. More concretely, as ~\citet{coral} state, CORAL aligns the distributions by re-coloring whitened source features with the covariance of the target distribution. CORAL is simple and efficient, as the only computations it needs are:
 \begin{itemize}
   \item computing covariance statistics in each domain
   \item applying the whitening and re-coloring linear transformation to the source features.
@@ -25,27 +25,33 @@ We define our goal as follows: given tweets from a single source domain, train a
 
 Then, supervised learning proceeds as usual -- training a classifier on the transformed source features.
 
-They describe their method by taking a multi-class classification problem as the running example. Given source-domain training examples $D_S = \left \{ \overrightarrow{x_i} \right \}$, $\overrightarrow{x} \in \mathbb{R}^{D}$ with labels $L_S = \left \{ y_i \right \}$, $ y \in \left \{ {1, \cdots, L} \right \}$, and target data $D_T = \left \{ \overrightarrow{u_i} \right \}$, $\overrightarrow{u} \in \mathbb{R}^{D}$. Here both $\left \{ \overrightarrow{x} \right \}$ and $\left \{ \overrightarrow{u} \right \}$ are the $D$-dimensional feature representations $\varphi(I)$ of input $I$.
+They describe their method by taking a multi-class classification problem as the running example. We are given source-domain training examples $D_S = \left \{ \overrightarrow{x_i} \right \}$, $\overrightarrow{x} \in \mathbb{R}^{D}$ with labels $L_S = \left \{ y_i \right \}$, $ y \in \left \{ {1, \cdots, L} \right \}$, and target data $D_T = \left \{ \overrightarrow{u_i} \right \}$, $\overrightarrow{u} \in \mathbb{R}^{D}$. Here both $\left \{ \overrightarrow{x} \right \}$ and $\left \{ \overrightarrow{u} \right \}$ are the $D$-dimensional feature representations $\varphi(I)$ of input $I$.
 
 Suppose $\mu_s, \mu_t$ and $C_S, C_T$ are the feature vector means and covariance matrices. According to ~\citep{coral}, to minimize the distance between the second-order statistics (covariance) of the source and target features, they apply a linear transformation $A$ to the original source features and use the Frobenius norm as the matrix distance metric: \[ \min_{A} \left \| C_{\hat{S}} - C_T \right \| _{F}^{2} = \min_{A} \left \| A^{T}C_{S}A - C_T \right \| _{F}^{2} \] where $C_S$ is covariance of the transformed source features $D_{s}A$ and $\left \| \cdot   \right \| _{F}^{2}$ denotes the matrix Frobenius norm. Essentially, the solution lies in finding the matrix $A$.
 
 After a series of calculations, which are presented in ~\citep{coral} in detail, the optimal solution can be found as: \[ A^{*} = U_{S}E \\ = (U_{S}\Sigma_{S}^{+\frac{1}{2}}U_{S}^\top)(U_{T[1:r]}\Sigma_{T[1:r]}^{+\frac{1}{2}}U_{T[1:r]}^\top) \] 
-This can be interpreted as follows: the first part whitens the source data while the second part re-colors it with the target covariance. 
+This can be interpreted as follows: the first part whitens the source data, while the second part re-colors it with the target covariance. 
 
 \textit{Whitening} refers to the process of first de-correlating the data $y$ -- its covariance, $\mathbf{E}(yy^\top)$ is now a diagonal matrix, $\Lambda$. The diagonal elements (eigenvalues) in $\Lambda$ may be the same or different. If we make them all the same, then this is called whitening the data ~\citep{rosalind}. 
 
 \textit{Re-coloring} generally refers to the process of transforming a vector of white random variables into a random vector with a specified covariance matrix ~\citep{miliha}.
 
-As ~\citep{coral} suggests, after CORAL transforms the source features to the target space, a classifier $f_{\overrightarrow{w}}$ parametrized by $\omega$ can be trained on the adjusted source features and directly applied to target features. 
+As ~\citet{coral} suggest, after CORAL transforms the source features to the target space, a classifier $f_{\overrightarrow{w}}$ parametrized by $\omega$ can be trained on the adjusted source features and directly applied to target features. 
 
-Since correlation alignment changes the features only, it can be applied to any base classifier. In this work, we run experiments using Naive Bayes Classifier. 
+Since correlation alignment changes the features only, it can be applied to any base classifier. In this work, we run experiments using Naive Bayes Classifier, discussed in Section \ref{nbc}. 
+
+%---------------------------------------------------------------------------------------------------------------------
+\section{Naive Bayes Classifier}
+\label{nbc}
 
 The first supervised learning method we use is the multinomial Naive Bayes or multinomial NB model, a probabilistic learning method ~\citep{ir}. It is used for multinomially distributed data, for instance, in text classification where the data are typically represented as word vector counts. We use it with \textit{counts} representation for the data.
+The probability of a document $d$ being in class $c$ is computed as \[ P(c|d) \propto P(c)\prod_{1 \leqslant k \leqslant n_{d}} P(t_k|c) \] 
 
-An alternative to the multinomial model is the multivariate Bernoulli model or Bernoulli model. It generates an indicator for each term of the vocabulary, either $1$ indicating presence of the term in the document or $0$ indicating absence ~\citep{ir}. We use it with \textit{0/1} representation for the data.
+where $P(t_k|c)$ is the conditional probability of term $t_k$ occurring in a document of class $c$, $P(t_k|c)$ is interpreted as a measure of how much evidence $t_k$ contributes that $c$ is the correct class. $P(c)$ is the prior probability of a document occurring in class $c$. If a document’s terms do not provide clear evidence for one class versus another, we choose the one that has a higher prior probability. $t_1, t_2, \cdots , t_{n_d}$ are the tokens in $d$ that are part of the vocabulary we use for classification and $n_d$ is the number of such tokens in $d$ \citep{ir}.
 
-However, since CORAL changes the values of the data from \textit{0/1} to continuous, we need to use Gaussian Naive Bayes algorithm for classification of such data. The likelihood of the features is assumed to be Gaussian: \[ P(x_i|y) = \frac{1}{\sqrt{2\pi \sigma ^{2}_y}} exp\left ( - \frac{(x_i - \mu_y)^2}{2\sigma ^2_y} \right ) \] 
+An alternative to the multinomial model is the multivariate Bernoulli model or Bernoulli model. It generates an indicator for each term of the vocabulary, either $1$ indicating presence of the term in the document or $0$ indicating absence ~\citep{ir}. We use it with \textit{0/1} representation for the data. 
 
+However, since CORAL changes the values of the data from \textit{0/1} to continuous, we need to use Gaussian Naive Bayes algorithm for classification of such data. The likelihood of the features is assumed to be Gaussian: \[ P(x_i|y) = \frac{1}{\sqrt{2\pi \sigma ^{2}_y}} exp\left ( - \frac{(x_i - \mu_y)^2}{2\sigma ^2_y} \right ) \] where  $\mu_y$ is the mean of the values in $x$ associated with class $y$, and $\sigma ^{2}_y$ is the variance of the values in $x$ associated with class $y$. 
 The results of the experiments are discussed in Section ~\ref{coralexperiments}.
 
 
@@ -57,20 +63,20 @@ We setup the experiments as follows:
 
 \begin{itemize}
   \item use only target features to represent sources
-  \item perform 5-fold cross-validation over target and report the average accuracy over the 5 folds (each source is "aligned" with 3 target unlabeled folds using CORAL, 1 labeled target fold is used for testing, 1 labeled target fold is kept for possible use of labeled target data)
-  \item vary the number of instances in the sources (i.e. 500 instances per class, 1000 instances per class, etc) - smaller datasets are subsets of th larger datasets
+  \item perform 5-fold cross-validation over target and report the average accuracy over the 5 folds (each source is "aligned" with 3 target unlabeled folds using CORAL, 1 labeled target fold is used for testing, 1 labeled target fold is kept for possible use as labeled target data in future work)
+  \item vary the number of instances in the sources (i.e. 500 instances per class, 1000 instances per class, etc) - smaller datasets are subsets of the larger datasets
 \end{itemize}
 
 
 %---------------------------------------------------------------------------------------------------------------------
-\subsection{Preliminary Results without Domain Adaptation}
+\subsection{Results for Supervised Learning from Source Data}
 \label{preresults}
 
-We present the results obtained when no domain adaptation is performed. The source data is expressed via target features and is described in Table \ref{table1}. Then, two representations are tested: \textit{0/1} and \textit{counts} to determine which representation is more promising i.e. gives better results. Bernoulli Naive Bayes and Multinomial Naive Nayes classifiers are used for \textit{0/1} and \textit{counts} representations respectively. 
+We present the results obtained when no domain adaptation is performed. The source data is expressed via target features and is described in Table \ref{table1}. Then, two representations are tested: \textit{0/1} and \textit{counts} to determine which representation gives better results. Bernoulli Naive Bayes and Multinomial Naive Nayes classifiers are used for \textit{0/1} and \textit{counts} representations, respectively. 
 
-The target data is divided into five folds for cross-validation ~\citep{hastie}. Each fold in turn is used for testing, and the accuracy is recorded in each run. The average results are reported. The number of instances per class in the source data is varied: the results are recorded for source data having $500$ instances per class, $1000$ instances per class, and $2000$ instances per class. All source data is also used as training data resulting in slightly better accuracy for $Source 2$ and $Source  3$ ($0.7888$ and $0.7421$, respectively, as compared to $0.7810$ and $0.7346$, respectively, for the number of instances equal to $2000$) in Table \ref{table3}. Generally, balanced training data (i.e. data that has equal number of instances per class) gives better performance.
+The target data is divided into five folds for cross-validation ~\citep{hastie}. Each fold in turn is used for testing, and the accuracy is recorded in each run. The average results are reported. The number of instances per class in the source data is varied: the results are recorded for source data having $500$ instances per class, $1000$ instances per class, and $2000$ instances per class. All source data is also used as training data resulting in slightly better accuracy for $Source 2$ and $Source  3$ ($0.7888$ and $0.7421$, respectively, as compared to $0.7810$ and $0.7346$, respectively, for the number of instances per class equal to $2000$) in Table \ref{table3}. Generally, balanced training data (i.e. data that has equal number of instances per class) gives better performance.
 
-The results in Table \ref{table3} and Table \ref{table4} indicate that \textit{0/1} representation is more efficient. One of the possible explanations might be that it is unlikely that meaningful words are repeatedly used in a single tweet since tweets are relatively short. Thus, keeping the actual counts does not provide additional relevant information.
+The results in Table \ref{table3} and Table \ref{table4} indicate that \textit{0/1} representation is more efficient. One of the possible explanations might be that it is unlikely that meaningful words are repeatedly used in a single tweet since tweets are relatively short. Instead, \textit{counts} representation emphasizes counts of stopwords, and often acts as noise. Thus, keeping the actual counts does not provide additional relevant information.
 
 
 %==================Table 1 begin
@@ -173,11 +179,11 @@ After running the preliminary experiments both with \textit{0/1} representation 
 \end{table}
 %==================Table end
 
-We can see improvement for one pair of source, precisely, 2012 Sandy Hurricane. After applying CORAL, the accuracy increases from $0.74$ to $0.77$ for a subset of $2000$ instances per class and from $0.71$ to $0.79$ for a set that uses all instances. In other cases, the accuracy decreases. One of the possible reasons might be that the initial matrix is very sparse and has a large number of features (precisely, $1334$) as compared to the number of instances ($1000, 2000$ etc). In the original paper ~\citep{coral}, they reduce the original dimentionaly of the dataset to keep top $400$ features based on mutual information ~\citep{hastie}. 
+We can see improvement for one pair of source, precisely, 2012 Sandy Hurricane. After applying CORAL, the accuracy increases from $0.74$ to $0.77$ for a subset of $2000$ instances per class and from $0.71$ to $0.79$ for a set that uses all instances. In other cases, the accuracy decreases. One of the possible reasons might be that the initial matrix is very sparse and has a large number of features (precisely, $1334$) as compared to the number of instances ($1000, 2000$ etc). In the original paper ~\citep{coral}, they reduce the original dimensionality of the dataset to keep top $400$ features based on mutual information ~\citep{hastie}. 
 
-Similarly, we attempt to reduce the dimentionaly of our dataset. We experiment with several dimentionaly reduction techniques. Since we assume that target labeled data is not available, using mutual information for feature selection is not quite applicable.
+Similarly, we attempt to reduce the dimensionality of our dataset. We experiment with several dimensionality reduction techniques. Since we assume that target labeled data is not available, using mutual information for feature selection is not quite applicable.
 
-\subsection{Feature Selection}
+\subsection{Results after Applying Feature Selection}
 \label{varthressub}
 
 %-------------------------------------------------------------------------------------
@@ -190,20 +196,20 @@ One of the dimentionality reduction methods that does not require labeled data i
 
 Feature selector that removes all low-variance features. 
 
-This feature selection algorithm looks only at the features $X$, not the desired outputs $y$, and can thus be used for unsupervised learning ~\citep{varthres}. Specifically, we have a dataset with boolean features, and we want to remove all features that are either one or zero (on or off), for instance, in more than $99\%$ of the samples. Boolean features are Bernoulli random variables, and the variance of such variables is given by: \[ Var[X] = p(1-p)\] so we can select features using the threshold equal to $.99 * (1 - .99)$.
+This feature selection algorithm looks only at the features $X$, not the desired outputs $y$, and can thus be used for unsupervised learning ~\citep{varthres}. Specifically, we have a dataset with boolean features, and we want to remove all features that are either one or zero (on or off), for instance, in more than $99\%$ of the samples. Boolean features are Bernoulli random variables, and the variance of such variables is given by: \[ Var[X] = p(1-p)\] so we can select features using a threshold equal to $.99 * (1 - .99)$.
 
-In order to select features, we first concatenate source data and target data, which we call \textit{training target unlabeled -- tTU}. Second, we transform source data and tTU using the extracted features. Then, we run CORAL on source data and tTU. We fit the classifier with transformed source data after the CORAL stage, and we test on \textit{testing target data}.
+In order to select features, we first concatenate labeled source data and target data, which we call \textit{training source labeled -- tSL} and \textit{training target unlabeled -- tTU}, respectively. Second, we transform tSL and tTU using the extracted features. Then, we run CORAL on tSL and tTU. We fit the classifier with transformed source data after the CORAL stage, and we test on \textit{testing target data}.
 
 Features with a training-set variance lower than the specified threshold are removed. We apply feature selection for every combination of source-target fold, so the number of features varies from $160$ to $176$. That is a significant reduction (by $88\%$) compared to the original dimentionaly of the data -- $1334$. 
 
-The value of threshold is varied across the experiments. Precisely, we experiment with $k=0.95, k=0.90, k=0.80$, and we present results in Table \ref{tablevar95}, in Table \ref{tablevar9}, in Table \ref{tablevar8} respectively. The highest accuracy is obtained when the threshold is equal to $0.99$ as described in Table \ref{tablevar99}. 
+The value of threshold is varied across the experiments. Precisely, we experiment with $k=0.95, k=0.90, k=0.80$, and we present results in Table \ref{tablevar95}, in Table \ref{tablevar9}, in Table \ref{tablevar8}, respectively. The highest accuracy is obtained when the threshold is equal to $0.99$ as described in Table \ref{tablevar99}. 
 
 We decide to further check whether feature selection by itself improves performance, without applying CORAL. We run select features based on Varience Threshold equal to $0.99$ and then run the Bernoulli Naive Bayes classifier. The results presented in Table \ref{tablevar99nocoral} show that applying CORAL does improve performance. Thus, eliminating features with variance lower than $0.99$ and then applying CORAL is more efficient than when CORAL is not applied. 
 
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL with Bernoulli Naive Bayes}
+    \caption{Accuracy with Bernoulli Naive Bayes after selecting features via Variance Threshold (0.99) without applying CORAL}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -222,7 +228,7 @@ We decide to further check whether feature selection by itself improves performa
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL with Gaussian Naive Bayes}
+    \caption{Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.99) and applying CORAL}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -242,7 +248,7 @@ We decide to further check whether feature selection by itself improves performa
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.95) and applying CORAL with Gaussian Naive Bayes}
+    \caption{Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.95) and applying CORAL}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -260,7 +266,7 @@ We decide to further check whether feature selection by itself improves performa
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.90) and applying CORAL with Gaussian Naive Bayes}
+    \caption{Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.90) and applying CORAL}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -278,7 +284,7 @@ We decide to further check whether feature selection by itself improves performa
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.80) and applying CORAL with Gaussian Naive Bayes}
+    \caption{Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.80) and applying CORAL}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -295,7 +301,7 @@ We decide to further check whether feature selection by itself improves performa
 
 We decide to test the method further on all pairs of source and target disasters described in Table ~\ref{tableadddata}. The results of applying feature selection followed by CORAL are shown in Table ~\ref{tablevar99adddata}, and the results of applying feature selection without CORAL are presented in Table ~\ref{tablevar99adddatanocoral}. 
 
-In addition, we present the number of features retained after applying Variance Threshold to the pair 2013 Boston Bombings -- 2013 Alberta Floods when the different amount of the source instances is used in Figure \ref{featuresretained99figure}. Precisely, $1000$ number of the source instances means that there are $500$ instances of the class \textit{1}, and $500$ instances of the class \textit{0}, the same logic applies to $2000$ and $4000$. $8750$ instances means that we use all the instances in the source data, and it becomes imbalanced. The plot gives a better understanding of the effect of Variance Threshold on reducing the feature space. The number of features for other pairs is in a similar range of $159-187$, which varies for different pairs and their folds.
+In addition, we present the number of features retained after applying Variance Threshold to the pair 2013 Boston Bombings -- 2013 Alberta Floods when the different amount of the source instances is used in Figure \ref{featuresretained99figure}. Precisely, $1000$ number of the source instances means that there are $500$ instances of the class \textit{1}, and $500$ instances of the class \textit{0}, the same logic applies to $2000$ and $4000$. $8750$ instances means that we use all the instances in the source data, and it becomes imbalanced. The plot gives a better understanding of the effect of Variance Threshold on reducing the feature space. The number of features for other pairs is in a similar range of $159-187$, which varies for different pairs and their folds. Concretely, since the source data is divided into 5 folds, we present the number of features for each fold. Some folds happen to have the same number of features retained, so the dots in figures may overlap.
 
 Interestingly, when the threshold is set to $0.95$, $0.90$ and $0.80$, the number of features retained reduces even further, and is presented in Figure \ref{featuresretained95figure}, in Figure \ref{featuresretained90figure} and in Figure \ref{featuresretained80figure}, respectively. 
 
@@ -333,7 +339,7 @@ Interestingly, when the threshold is set to $0.95$, $0.90$ and $0.80$, the numbe
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) without applying CORAL with Bernoulli Naive Bayes. All pairs}
+    \caption{Accuracy with Bernoulli Naive Bayes after selecting features via Variance Threshold (0.99) without applying CORAL. All pairs}
     \begin{tabular}[c]{|c|c|c|c|c|c|}
         \hline
         Pair & 500 & 1000 & 2000 & Total \\
@@ -365,7 +371,7 @@ Interestingly, when the threshold is set to $0.95$, $0.90$ and $0.80$, the numbe
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features via Variance Threshold (0.99) and applying CORAL with Gaussian Naive Bayes. All pairs}
+    \caption{Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.99) and applying CORAL. All pairs}
     \begin{tabular}[c]{|c|c|c|c|c|c|}
         \hline
         Pair & 500 & 1000 & 2000 & Total \\
@@ -524,12 +530,12 @@ Interestingly, when the threshold is set to $0.95$, $0.90$ and $0.80$, the numbe
 \end{figure}
 %==================Figure end
 
-We decide to further experiment with this feature selection method, precisely, we now rank features by their variance i.e. calcucating $p(1-p)$ for each feature across all samples, in the descending order. We then take top $k$ features and run the experiments again. The results for $k = 190$ without applying CORAl and with applying CORAL are shown in Table \ref{top190vartablenocoral} and in Table \ref{top190vartablecoral}, respectively, and the results for $k = 170$ with applying CORAL are shown in Table \ref{top170vartablecoral}.
+We decide to further experiment with this feature selection method, precisely, we now rank features by their variance i.e. calcucating $p(1-p)$ for each feature across all samples, in the descending order. We then take top $k$ features and run the experiments again. The results for $k = 190$ without applying CORAL and with applying CORAL are shown in Table \ref{top190vartablenocoral} and in Table \ref{top190vartablecoral}, respectively, and the results for $k = 170$ with applying CORAL are shown in Table \ref{top170vartablecoral}. Genereally, the accuracy does not improve. However, the method discussed earlier, where we remove all low-variance features, improves the accuracy. 
 
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after ranking features by variance in the descending order, and selecting top k features (k=190), without applying CORAL with Bernoulli Naive Bayes. All pairs}
+    \caption{Accuracy with Bernoulli Naive Bayes after ranking features by variance in the descending order, and selecting top k features (k=190), without applying CORAL. All pairs}
     \begin{tabular}[c]{|c|c|c|c|c|c|}
         \hline
         Pair & 500 & 1000 & 2000 & Total \\
@@ -625,7 +631,7 @@ We decide to further experiment with this feature selection method, precisely, w
 
 This transformer performs linear dimensionality reduction by means of truncated singular value decomposition (SVD) ~\citep{ir}. Contrary to PCA, this estimator does not center the data before computing the singular value decomposition. This means it can work with scipy.sparse matrices efficiently. 
 
-The results on our data show that Truncated SVD does not contribute to better accuracy. We manually choose the number of components $k$. Concretely, we experiment with $k=677$, choosing this values as $50\%$ of the original number of features ($1334$), with $k=400$ and with $k=170$, choosing this value as an average number of features obtained after Variance Threshold discussed in \ref{varthressub} that give the best performance so far.
+The results on our data show that Truncated SVD does not contribute to better accuracy. We manually choose the number of components $k$. Concretely, we experiment with $k=677$, choosing this values as $50\%$ of the original number of features ($1334$), with $k=400$ and with $k=170$, choosing this value as an average number of features obtained after Variance Threshold discussed in \ref{varthressub} that give the best performance so far. The results are presented in Table \ref{tabletrunsvd677}, \ref{tabletrunsvd400} and \ref{tabletrunsvd170}, respectively. Overall, this feature selection method decreases the accuracy of the classifier. 
 
 %==================Table begin
 \begin{table}[!h]%[ht]
@@ -687,7 +693,7 @@ The results on our data show that Truncated SVD does not contribute to better ac
 
 The mutual information of two random variables is a natural measure of dependence between the two variables ~\citep{hastie}, which can be expressed as follows: \[I(x,y) = \sum_{x,y} P(x,y) \ln {{P(x,y)}\over{P(x) P(y)}} \]
 
-Our first experiment in this subsection we setup as follows:
+Our first experiment in this subsection, we setup as follows:
   \begin{itemize}
   \item express source via target features
   \item select top K features from source based on Mutual Information
@@ -703,7 +709,7 @@ We select $k=300$ and present the results in Table \ref{tablemisource300}.
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features based on Mutual Information in Source (k=300) and applying CORAL with Gaussian Naive Bayes}
+    \caption{Accuracy with Gaussian Naive Bayes after selecting features based on Mutual Information in Source (k=300) and applying CORAL}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\
@@ -724,7 +730,7 @@ The results are shown in Table \ref{tablemisource400}. We conclude that keeping 
 %==================Table begin
 \begin{table}[ht]
     \begin{center}
-    \caption{Accuracy after selecting features based on Mutual Information in Source (k=400) and applying CORAL with  Gaussian Naive Bayes}
+    \caption{Accuracy with Gaussian Naive Bayes after selecting features based on Mutual Information in Source (k=400) and applying CORAL}
     \begin{tabular}[c]{|c|c|c|c|c|}
         \hline
         Source Disaster Event & 500 & 1000 & 2000 & Total \\

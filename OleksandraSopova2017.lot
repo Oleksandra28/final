@@ -1,0 +1,41 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Original CrisisLeXT6 Dataset}}{10}{table.3.1}
+\contentsline {table}{\numberline {3.2}{\ignorespaces Dataset CrisisLeXT6 after preprocessing}}{11}{table.3.2}
+\contentsline {table}{\numberline {3.3}{\ignorespaces Example of bag-of-words representation}}{12}{table.3.3}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Target and Source datasets}}{17}{table.4.1}
+\contentsline {table}{\numberline {4.2}{\ignorespaces Accuracy after running Bernoulli Naive Bayes with 0/1 representation for instances}}{18}{table.4.2}
+\contentsline {table}{\numberline {4.3}{\ignorespaces Accuracy after running Multinomial Naive Bayes with counts representation for instances}}{18}{table.4.3}
+\contentsline {table}{\numberline {4.4}{\ignorespaces Accuracy after applying CORAL with Gaussian Naive Bayes}}{18}{table.4.4}
+\contentsline {table}{\numberline {4.5}{\ignorespaces Accuracy with Bernoulli Naive Bayes after selecting features via Variance Threshold (0.99) without applying CORAL}}{20}{table.4.5}
+\contentsline {table}{\numberline {4.6}{\ignorespaces Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.99) and applying CORAL}}{20}{table.4.6}
+\contentsline {table}{\numberline {4.7}{\ignorespaces Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.95) and applying CORAL}}{21}{table.4.7}
+\contentsline {table}{\numberline {4.8}{\ignorespaces Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.90) and applying CORAL}}{21}{table.4.8}
+\contentsline {table}{\numberline {4.9}{\ignorespaces Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.80) and applying CORAL}}{22}{table.4.9}
+\contentsline {table}{\numberline {4.10}{\ignorespaces All Pairs of Source-Target Disasters}}{22}{table.4.10}
+\contentsline {table}{\numberline {4.11}{\ignorespaces Accuracy with Bernoulli Naive Bayes after selecting features via Variance Threshold (0.99) without applying CORAL. All pairs}}{23}{table.4.11}
+\contentsline {table}{\numberline {4.12}{\ignorespaces Accuracy with Gaussian Naive Bayes after selecting features via Variance Threshold (0.99) and applying CORAL. All pairs}}{23}{table.4.12}
+\contentsline {table}{\numberline {4.13}{\ignorespaces Accuracy with Bernoulli Naive Bayes after ranking features by variance in the descending order, and selecting top k features (k=190), without applying CORAL. All pairs}}{27}{table.4.13}
+\contentsline {table}{\numberline {4.14}{\ignorespaces Accuracy after ranking features by variance in the descending order, selecting top k features (k=190), and applying CORAL with Gaussian Naive Bayes. All pairs}}{28}{table.4.14}
+\contentsline {table}{\numberline {4.15}{\ignorespaces Accuracy after ranking features by variance in the descending order, selecting top k features (k=170), and applying CORAL with Gaussian Naive Bayes. All pairs}}{28}{table.4.15}
+\contentsline {table}{\numberline {4.16}{\ignorespaces Accuracy after selecting features via Truncated SVD (k=677) and applying CORAL with Gaussian Naive Bayes}}{28}{table.4.16}
+\contentsline {table}{\numberline {4.17}{\ignorespaces Accuracy after selecting features via Truncated SVD (k=400) and applying CORAL with Gaussian Naive Bayes}}{29}{table.4.17}
+\contentsline {table}{\numberline {4.18}{\ignorespaces Accuracy after selecting features via Truncated SVD (k=170) and applying CORAL with Gaussian Naive Bayes}}{29}{table.4.18}
+\contentsline {table}{\numberline {4.19}{\ignorespaces Accuracy with Gaussian Naive Bayes after selecting features based on Mutual Information in Source (k=300) and applying CORAL}}{29}{table.4.19}
+\contentsline {table}{\numberline {4.20}{\ignorespaces Accuracy with Gaussian Naive Bayes after selecting features based on Mutual Information in Source (k=400) and applying CORAL}}{29}{table.4.20}
+\contentsline {table}{\numberline {4.21}{\ignorespaces Accuracy after selecting features based on Mutual Information in Source (k=300) combining Source and Target, and applying CORAL with Gaussian Naive Bayes}}{29}{table.4.21}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Pairs of Mutli-source--Target Disasters}}{33}{table.5.1}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Accuracy after running Bernoulli Naive Bayes on multi-source data when no domain adaptation is performed}}{33}{table.5.2}
+\contentsline {table}{\numberline {5.3}{\ignorespaces Weights obtained for $SH, QF, BB \rightarrow AF$ (sigma=1.1314)}}{33}{table.5.3}
+\contentsline {table}{\numberline {5.4}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=1.1314)}}{34}{table.5.4}
+\contentsline {table}{\numberline {5.5}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=0.0001)}}{34}{table.5.5}
+\contentsline {table}{\numberline {5.6}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=0.01)}}{35}{table.5.6}
+\contentsline {table}{\numberline {5.7}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=1)}}{35}{table.5.7}
+\contentsline {table}{\numberline {5.8}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=10)}}{35}{table.5.8}
+\contentsline {table}{\numberline {5.9}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=100)}}{35}{table.5.9}
+\contentsline {table}{\numberline {5.10}{\ignorespaces Accuracy after running Gaussian Naive Bayes on multi-source data after applying Variance Threshold (0.99) and CORAL}}{35}{table.5.10}
+\addvspace {10\p@ }
+\addvspace {10\p@ }

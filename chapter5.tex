@@ -3,7 +3,7 @@
 \chapter{Multi-source Domain Adaptation Approach}
 \label{mdachapter}
 
-In this chapter, we first define the problem of learning from multiple sources in Section ~\ref{mdaproblemdefinitions}, and then describe the multi-source domain adaptation algorithm ("MDA") proposed in the paper ~\citep{mda} in Section ~\ref{mdaalg}. Finally, we discuss the results obtained after applying MDA in Section ~\ref{mdaexperiments}.
+In this chapter, we first define the problem of learning from multiple sources in Section ~\ref{mdaproblemdefinitions}, and then describe the multi-source domain adaptation algorithm ("MDA") proposed in the paper ~\citep{mda} in Section ~\ref{mdaalg}. Finally, we discuss the results obtained after applying MDA on our data in Section ~\ref{mdaexperiments}.
 
 
 %---------------------------------------------------------------------------------------------------------------------
@@ -24,14 +24,13 @@ $P_{X|Y}$ -- a causal mechanism to generate effect $X$ from cause $Y$ \\
 $V_S$ -- a domain-specific selection variable \\
 $P_{X|Y, V_S}$ -- a conditional $P_{X|Y}$ in the domain associated with $V_S$
 
-\citep{mda} focus on multi-source domain adaptation from a causal point of view, precisely, they focus on a typical domain adaptation scenario where both $P_Y$ and $P_{X|Y}$ change across domains, but their changes are independent from each other. They assume that the source domains contain rich information such that for each class, $P_{X|Y}^t$ can be approximated by a linear mixture of $P_{X|Y}$ on source domains. 
+\citet{mda} focus on multi-source domain adaptation from a causal point of view, precisely, they focus on a typical domain adaptation scenario where both $P_Y$ and $P_{X|Y}$ change across domains, but their changes are independent from each other. They assume that the source domains contain rich information such that for each class, $P_{X|Y}^t$ can be approximated by a linear mixture of $P_{X|Y}$ on source domains. 
 
-\citep{mda} discuss several possible domain adaptation situations and their solutions, and we research the case where they model the target as a linear mixture of the sources. 
+\citet{mda} discuss several possible domain adaptation situations and their solutions, and we research the case where they model the target as a linear mixture of the sources. 
 
-Consider $P_{X|Y, V_S}$ as the mechanism to generate features from the class labels given the domain. Next, imagine that there exist $L$ elementary "sub-mechanisms", or class conditional feature distributions, $\tilde{P}_{X|Y}^{(l)}$, $l = 1, \cdots, L$, so that the mechanism in each domain, $P_{X|Y, V_S}$, is a mixture of those sub-mechanisms, i.e. $P_{X|Y=c_j, V_S} = \sum_{l=1}^{L} \tilde{a}_{V_S, j, l} \tilde{P}_{X|Y}^{(l)}$, where ${\aa}_{V_S, j, l}$ depend on both $V_S$ and $j, {\aa}_{V_S, l} \geqslant 0$, and $\sum_{l=1}^{L} \aa_{V_S, j, l} = 1$. 
+Consider $P_{X|Y, V_S}$ as the mechanism to generate features from the class labels given the domain. Next, imagine that there exist $L$ elementary "sub-mechanisms", or class conditional feature distributions, $\tilde{P}_{X|Y}^{(l)}$, $l = 1, \cdots, L$, so that the mechanism in each domain, $P_{X|Y, V_S}$, is a mixture of those sub-mechanisms, i.e. $P_{X|Y=c_j, V_S} = \sum_{l=1}^{L} \tilde{a}_{V_S, j, l} \tilde{P}_{X|Y}^{(l)}$, where $\aa_{V_S, j, l}$ depend on both $V_S$ and $j, {\aa}_{V_S, l} \geqslant 0$, and $\sum_{l=1}^{L} \aa_{V_S, j, l} = 1$. 
 
-Consequently, in the multi-source domain adaptation scenario, if for each $j$, the rank of $\left \{P_{X|Y=c_j}^{(i)} | i = 1, \cdots, n \right \}$ is equal to $L$, $P_{X|Y=c_j}^{t}$ can always be represented as a linear mixture of $P_{X|Y=c_j}^{(i)}$, as \citep{mda} state. For each $y$, $P_{X|Y=y}^{t}$ is a mixture of $P_{X|Y=y}$ on the source domains, i.e. there exist $a_{ij}$, which satisfy the constraint $\sum_{i=1}^{n} \a_{ij} = 1$ for all $j$, such that \[ P_{X|Y=c_j}^{new} = \sum_{i=1}^{n} a_{ij}P_{X|Y=c_j}^{(i)}\] is equal to $P_{X|Y=c_j}^{t}$, where $c_j$ is the $j$th possible value of $Y$. 
-
+Consequently, in the multi-source domain adaptation scenario, if for each $j$, the rank of $\left \{P_{X|Y=c_j}^{(i)} | i = 1, \cdots, n \right \}$ is equal to $L$, $P_{X|Y=c_j}^{t}$ can always be represented as a linear mixture of $P_{X|Y=c_j}^{(i)}$, as \citet{mda} state. For each $y$, $P_{X|Y=y}^{t}$ is a mixture of $P_{X|Y=y}$ on the source domains, i.e. there exist $a_{ij}$, which satisfy the constraint $\sum_{i=1}^{n} \aa_{ij} = 1$ for all $j$, such that \[ P_{X|Y=c_j}^{new} = \sum_{i=1}^{n} a_{ij}P_{X|Y=c_j}^{(i)}\] is equal to $P_{X|Y=c_j}^{t}$, where $c_j$ is the $j$th possible value of $Y$. \citet{mda} denote by $P_{Y}^{new}$ a marginal distribution of $Y$, and use $P_{Y}^{new}(c_j)$ as shorthand for $P_{Y}^{new}(Y=c_j)$. The corresponding joint distribution is $P_{X,Y=c_j}^{new}=P_{Y}^{new}(c_j)P_{X|Y=c_j}^{new}$, and the marginal distribution of $X$ is $P_{X}^{new}=\sum_{j=1}^{C}P_{Y}^{new}\sum_{i=1}^{n}a_{ij}P_{X|Y=c_j}^{(i)}$. \citet{mda} aim to match $P_{X}^{new}$ with $P_{X}^{t}$ by tuning the parameters $a_{ij}$ and $P_{Y}^{new}(c_j)$. The constraints are: $P_{Y}^{new}(c_j) \geqslant 0$, and $\sum_{j=1}^{C}P_{Y}^{new}(c_j)=1$. Let $\beta_{ij} \triangleq P_{Y}^{new}(c_{ij})a_{ij}$, which satisfy the condition $\sum_{j=1}^{C}\sum_{i=1}^{n}\beta_{ij} = 1$. When \citet{mda} find the values of $\beta_{ij}$, they reconstruct $p_{Y}^{new}$ and $a_{ij}$ by $P_{Y}^{new}(c_j) = \sum_{i=1}^{n}\beta_{ij}$, and $a_{ij} = \frac{\beta_{ij}}{P_{Y}^{new}(c_j)}$.
 
 %---------------------------------------------------------------------------------------------------------------------
 \section{Experiments and Results}
@@ -97,28 +96,12 @@ As we can see, using more source data generally improves the performance of the 
 \end{table}
 %==================Table end
 
-We first choose a pair of $SH, QF, BB \rightarrow AF$ to experiment with the idea proposed in \citep{mda}. The results are presented in Table \ref{multisourcemda1}. The columns $500$, $1000$, $2000$ and $Total$ mean that $500$, $1000$, $2000$ and all samples per class per source are taken, respectively, and weights are obtained for each of them separately. The weights are presented in Table \ref{sampleweights}, which can be interpreted as follows: the weights for a specific class ($0$ / "Neg" or $1$ / "Pos") across the sources should sum up to $1$. The more one source is similar to the target, the more weight it receives. Also, when the source data is balanced i.e. $500$, $1000$, $2000$ instances per class per source are used, the weights do not differ much, for example, the weights for the negative class when $500$ intances are used, are almost identical across all the three sources: $0.33779$, $0.33601$ and $0.3262$ for $SH$, $QF$ and $BB$, respectively. One of the possible interpretations might be that since the data across sources is balanced, they contribute the equal amount of information for the target.
-
-\begin{table}[ht]
-    \begin{center}
-    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA}
-    \begin{tabular}[c]{|c|c|c|c|c|c|}
-        \hline
-        Pair & 500 & 1000 & 2000 & Total \\
-        \hline
-                             
-        $SH, QF, BB \rightarrow AF$ & 0.705416920268 &	0.753499695679 & 0.723067559343	& 0.709068776628 \\ %
-
-        \hline
-    \end{tabular}
-    \label{multisourcemda1}
-   \end{center}
-\end{table}
+We first choose a pair of $SH, QF, BB \rightarrow AF$ to experiment with the idea proposed in \citep{mda}. The results are presented in Table \ref{multisourcemda1}. The columns $500$, $1000$, $2000$ and $Total$ mean that $500$, $1000$, $2000$ and all samples per class per source are taken, respectively, and weights are obtained for each of them separately. The weights are presented in Table \ref{sampleweights}, which can be interpreted as follows: the weights for a specific class ($0$ / "Neg" or $1$ / "Pos") across the sources should sum up to $1$. The more one source is similar to the target, the more weight it receives. Also, when the source data is balanced, i.e. $500$, $1000$, $2000$ instances per class per source are used, the weights do not differ much, for example, the weights for the negative class when $500$ intances are used, are almost identical across all the three sources: $0.33779$, $0.33601$ and $0.3262$ for $SH$, $QF$ and $BB$, respectively.
 
 
 \begin{table}[ht]
     \begin{center}
-    \caption{Weights obtained for $SH, QF, BB \rightarrow AF$ }
+    \caption{Weights obtained for $SH, QF, BB \rightarrow AF$ (sigma=1.1314)}
     \begin{tabular}[c]{|c|c|c|c|c|c|}
 
         \hline
@@ -136,7 +119,116 @@ We first choose a pair of $SH, QF, BB \rightarrow AF$ to experiment with the ide
    \end{center}
 \end{table}
 
-%Since we work with \textit{0/1} representation for data, which is expressed via target features, the data is very sparse (i.e. contains a lot of zeros). Thus, the weights 
+
+
+The initial value of $sigma$ equal to $1.1314$ is used in the original paper, so we use it as well. However, since the accuracy decreases, we also experiment with different values for $sigma$. The results are presented in Tables \ref{multisourcesigma00001}, \ref{multisourcesigma001}, \ref{multisourcesigma1}, \ref{multisourcesigma10}  for values of sigma set to $0.0001, 0.01, 1, 10, 100$ respectively.
+
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=1.1314)}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline
+                             
+        $SH, QF, BB \rightarrow AF$ & 0.705416920268 &  0.753499695679 & 0.723067559343 & 0.709068776628 \\ %
+
+        \hline
+    \end{tabular}
+    \label{multisourcemda1}
+   \end{center}
+\end{table}
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=0.0001)}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline                             
+        $SH, QF, BB \rightarrow AF$ & 0.703590992 & 0.723676202  & 0.723676202   & 0.69872185 \\ %
+        \hline
+    \end{tabular}
+    \label{multisourcesigma00001}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=0.01)}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline                             
+        $SH, QF, BB \rightarrow AF$ & 0.703590992 & 0.723676202 & 0.723676202 & 0.69872185 \\ %
+        \hline
+    \end{tabular}
+    \label{multisourcesigma001}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=1)}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline                             
+        $SH, QF, BB \rightarrow AF$ & 0.703590992 & 0.723676202 & 0.723676202 & 0.69872185 \\ %
+        \hline
+    \end{tabular}
+    \label{multisourcesigma1}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=10)}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline                             
+        $SH, QF, BB \rightarrow AF$ & 0.702982349 & 0.721241631 & 0.717589775 & 0.687157638 \\ %
+        \hline
+    \end{tabular}
+    \label{multisourcesigma10}
+   \end{center}
+\end{table}
+%==================Table end
+
+
+
+%==================Table begin
+\begin{table}[ht]
+    \begin{center}
+    \caption{Accuracy after running Gaussian Naive Bayes on multi-source data after applying MDA (sigma=100)}
+    \begin{tabular}[c]{|c|c|c|c|c|c|}
+        \hline
+        Pair & 500 & 1000 & 2000 & Total \\
+        \hline                             
+        $SH, QF, BB \rightarrow AF$ & 0.704808278 & 0.693852708 & 0.661594644 & 0.637857578 \\ %
+        \hline
+    \end{tabular}
+    \label{multisourcesigma100}
+   \end{center}
+\end{table}
+%==================Table end
+
 
 We decide to further experiment with multi-source domain adaptation. Precisely, motivated by the improved results discussed in Chapter \ref{coralchapter}, we apply the same logic to the multi-source case: we first select features based on Variance Threshold, and then run CORAL. The transformed data is used in training of the Gaussian Naive Bayes classifier. The results are presented in Table \ref{multisourcenvt99coral}.
 

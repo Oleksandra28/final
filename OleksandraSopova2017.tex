@@ -78,7 +78,8 @@
 \usepackage{setspace} % Controls line spacing
 \usepackage[margin=1in]{geometry} % Sets page margins to 1 inch on all sides
 \usepackage[titles]{tocloft} % Adds leader dots to all entries in the table of contents
-
+\usepackage{float}
+\restylefloat{table}
 % +--------------------------------------------------------------------+
 % |
 % | Citation and Bibliography Style
@@ -194,7 +195,9 @@
 % | first page on which page numbers are displayed.
 % +--------------------------------------------------------------------+
 
-\setcounter{page}{4}
+\setcounter{page}{5}
+\setcounter{secnumdepth}{3}
+
 
 % +--------------------------------------------------------------------+
 % | The following command creates a bookmark for the table of contents
@@ -234,7 +237,9 @@
 % | or delete the following 3 lines.
 % +--------------------------------------------------------------------+
 
+
 \phantomsection
+\setcounter{page}{10}
 \addcontentsline{toc}{chapter}{Acknowledgements}
 \input{acknowledge.tex}
 
